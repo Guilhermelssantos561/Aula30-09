@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <!-- Define a codificação de caracteres como UTF-8 (suporta acentos e caracteres especiais) -->
+    <meta charset="UTF-8">
+    
+    <!-- Configura a viewport para tornar a página responsiva em dispositivos móveis -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Título que aparece na aba do navegador -->
+    <title>Pharma & Fitness Store</title>
+    
+    <!-- Importa o framework Tailwind CSS via CDN (para estilização visual com classes utilitárias) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Importa a fonte 'Inter' do Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Importa a biblioteca de ícones Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Define a fonte padrão da página como 'Inter' -->
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+
+<!-- 
+  [body]
+  - bg-[#f7f5ef]: Fundo levemente bege/off-white.
+  - min-h-screen: Garante que o corpo ocupe pelo menos 100% da altura da tela.
+  - flex flex-col justify-between: Empilha topo, conteúdo e rodapé, mantendo o rodapé no final.
+-->
+<body class="bg-[#f7f5ef] min-h-screen text-gray-800 flex flex-col justify-between">
+
+    <!-- ========================================== -->
+    <!-- CABEÇALHO / NAVBAR                        -->
+    <!-- ========================================== -->
+    <!-- sticky top-0 z-50: Mantém o cabeçalho fixo no topo ao rolar a página -->
+    <header class="bg-white border-b border-gray-100 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            
+            <!-- LOGO DA LOJA -->
+            <div class="flex items-center gap-3">
+                <!-- Ícone / Símbolo da marca (+) -->
+                <div class="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center text-amber-300 font-bold text-xl shadow-md">
+                    +
+                </div>
+                <!-- Nome da marca -->
+                <span class="text-xl font-bold text-gray-900 tracking-tight">Pharma<span class="text-blue-600">&Fit</span></span>
+            </div>
+
+            <!-- CAMPO DE BUSCA (Oculto em telas pequenas, visível a partir do tamanho 'md') -->
+            <div class="flex-1 max-w-md hidden md:block">
+                <div class="relative">
+                    <input type="text" placeholder="Buscar medicamentos, suplementos, marcas..." 
+                        class="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all">
+                    <!-- Ícone de lupa posicionado de forma absoluta dentro do input -->
+                    <i data-lucide="search" class="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+                </div>
+            </div>
+
+            <!-- AÇÕES DO USUÁRIO (Minha Conta e Carrinho) -->
+            <div class="flex items-center gap-4">
+                <!-- Link para a tela de Cadastro / Minha Conta (Sintaxe de URL do Django) -->
+                <a href="{% url 'cadastro' %}" class="flex items-center gap-2 text-sm text-gray-600 hover:text-blue-600 font-medium transition-colors">
+                    <i data-lucide="user" class="w-5 h-5"></i>
+                    <span class="hidden sm:inline">Minha Conta</span>
+                </a>
+                
+                <!-- Botão Ver Carrinho -->
+                <a href="{% url 'carrinho' %}" class="relative p-2.5 bg-blue-50 text-blue-600 rounded-xl hover:bg-blue-100 transition-colors flex items-center gap-2">
+                    <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                    <span class="hidden md:inline text-sm font-medium">Ver Carrinho</span>
+                    <!-- Contador dinâmico de itens no carrinho (atualizado via JavaScript) -->
+                    <span id="contador-carrinho" class="absolute -top-1 -right-1 bg-blue-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- ========================================== -->
+    <!-- BANNER HERO PRINCIPAL                      -->
+    <!-- ========================================== -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 w-full">
+        <!-- Caixa com gradiente escuro e bordas arredondadas -->
+        <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-blue-900 rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden shadow-xl">
+            <div class="max-w-lg z-10 relative">
+                <!-- Tag/Badge de destaque -->
+                <span class="inline-block px-3 py-1 bg-amber-400/20 text-amber-300 rounded-full text-xs font-semibold mb-4 border border-amber-400/30">
+                    Saúde & Performance
+                </span>
+                <h1 class="text-3xl sm:text-5xl font-bold tracking-tight mb-4 leading-tight">
+                    Cuidado completo para seu bem-estar.
+                </h1>
+                <p class="text-gray-300 text-sm sm:text-base mb-6">
+                    Encontre farmácia de confiança e a nutrição esportiva de alta performance no mesmo lugar.
+                </p>
+                <!-- Botões de atalho/navegação interna (âncoras) -->
+                <div class="flex flex-wrap gap-3">
+                    <a href="#farmacia" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 font-medium rounded-xl text-sm transition-all shadow-lg shadow-blue-600/30">
+                        Ir para Farmácia
+                    </a>
+                    <a href="#academia" class="px-6 py-3 bg-amber-400 hover:bg-amber-500 text-slate-900 font-semibold rounded-xl text-sm transition-all">
+                        Ir para Academia
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- CONTEÚDO PRINCIPAL (PRODUTOS)              -->
+    <!-- ========================================== -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16 w-full">
+
+        <!-- -------------------------------------- -->
+        <!-- SEÇÃO 1: ÁREA DE MEDICAMENTOS (FARMÁCIA) -->
+        <!-- -------------------------------------- -->
+        <section id="farmacia">
+            <!-- Cabeçalho da Seção -->
+            <div class="flex items-center justify-between mb-8">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-blue-100 text-blue-600 rounded-xl">
+                        <i data-lucide="pill" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900">Farmácia e Saúde</h2>
+                        <p class="text-sm text-gray-500">Medicamentos contínuos, cuidados e prevenção</p>
+                    </div>
+                </div>
+                <a href="#" class="text-sm font-semibold text-blue-600 hover:underline flex items-center gap-1">
+                    Ver todos <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+
+            <!-- Grade de Cards (Responsive Grid: 1 col em mobile, 2 em tablets, 4 em telas grandes) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- CARD PRODUTO 1: Dipirona -->
+                <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+                    <div>
+                        <!-- Área de Imagem / Ícone com Badge "Genérico" -->
+                        <div class="bg-gray-50 rounded-xl p-6 flex justify-center items-center mb-4 relative">
+                            <span class="absolute top-2 left-2 bg-emerald-100 text-emerald-700 text-xs font-semibold px-2.5 py-0.5 rounded-md">
+                                Genérico
+                            </span>
+                            <i data-lucide="capsule" class="w-16 h-16 text-blue-500 opacity-80"></i>
+                        </div>
+                        <span class="text-xs text-gray-400 uppercase font-medium">Analgésico</span>
+                        <h3 class="font-semibold text-gray-800 text-base mt-1">Dipirona Monoidratada 500mg</h3>
+                        <p class="text-xs text-gray-500 mt-1">Caixa com 20 comprimidos</p>
+                    </div>
+                    <!-- Preço e Botão Adicionar ao Carrinho -->
+                    <div class="mt-6 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs text-gray-400 line-through">R$ 12,90</span>
+                            <div class="text-xl font-bold text-gray-900">R$ 8,50</div>
+                        </div>
+                        <!-- Chama a função JS 'adicionarAoCarrinho' enviando o Nome e Preço do produto -->
+                        <button onclick="adicionarAoCarrinho('Dipirona Monoidratada 500mg', 8.50)" class="p-3 bg-blue-50 hover:bg-blue-600 text-blue-600 hover:text-white rounded-xl transition-colors">
+                            <i data-lucide="plus" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- CARD PRODUTO 2: Vitamina C -->
+                <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+                    <div>
+                        <div class="bg-gray-50 rounded-xl p-6 flex justify-center items-center mb-4 relative">
+                            <i data-lucide="shield-check" class="w-16 h-16 text-emerald-500 opacity-80"></i>
+                        </div>
+                        <span class="text-xs text-gray-400 uppercase font-medium">Vitamina</span>
+                        <h3 class="font-semibold text-gray-800 text-base mt-1">Vitamina C Zinco 30 Comprimidos</h3>
+                        <p class="text-xs text-gray-500 mt-1">Suporte ao sistema imunológico</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <div>
+                            <div class="text-xl font-bold text-gray-900">R$ 34,90</div>
+                        </div>
+                        <button onclick="adicionarAoCarrinho('Vitamina C Zinco 30 Comprimidos', 34.90)" class="p-3 bg-blue-50 hover:bg-blue-600 text-blue-600 hover:text-white rounded-xl transition-colors">
+                            <i data-lucide="plus" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- -------------------------------------- -->
+        <!-- SEÇÃO 2: ÁREA FITNESS / SUPLEMENTOS    -->
+        <!-- -------------------------------------- -->
+        <section id="academia" class="pt-4">
+            <!-- Cabeçalho da Seção -->
+            <div class="flex items-center justify-between mb-8">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-amber-100 text-amber-700 rounded-xl">
+                        <i data-lucide="dumbbell" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900">Mundo Fitness & Suplementos</h2>
+                        <p class="text-sm text-gray-500">Alta performance, hipertrofia e recuperação</p>
+                    </div>
+                </div>
+                <a href="#" class="text-sm font-semibold text-amber-600 hover:underline flex items-center gap-1">
+                    Ver todos <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+
+            <!-- Grade de Cards Fitness -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- CARD SUPLEMENTO 1: Whey Protein -->
+                <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+                    <div>
+                        <div class="bg-gray-50 rounded-xl p-6 flex justify-center items-center mb-4 relative">
+                            <span class="absolute top-2 left-2 bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-0.5 rounded-md">
+                                Top Seller
+                            </span>
+                            <i data-lucide="zap" class="w-16 h-16 text-amber-500 opacity-80"></i>
+                        </div>
+                        <span class="text-xs text-gray-400 uppercase font-medium">Proteína</span>
+                        <h3 class="font-semibold text-gray-800 text-base mt-1">100% Whey Concentrado 900g</h3>
+                        <p class="text-xs text-gray-500 mt-1">Sabor Chocolate Suíço</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs text-gray-400 line-through">R$ 130,00</span>
+                            <div class="text-xl font-bold text-gray-900">R$ 99,90</div>
+                        </div>
+                        <button onclick="adicionarAoCarrinho('100% Whey Concentrado 900g', 99.90)" class="p-3 bg-slate-900 hover:bg-amber-400 hover:text-slate-900 text-white rounded-xl transition-colors">
+                            <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- CARD SUPLEMENTO 2: Creatina -->
+                <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+                    <div>
+                        <div class="bg-gray-50 rounded-xl p-6 flex justify-center items-center mb-4 relative">
+                            <i data-lucide="flame" class="w-16 h-16 text-orange-500 opacity-80"></i>
+                        </div>
+                        <span class="text-xs text-gray-400 uppercase font-medium">Energia</span>
+                        <h3 class="font-semibold text-gray-800 text-base mt-1">Creatina Monohidratada 300g</h3>
+                        <p class="text-xs text-gray-500 mt-1">100% Pura e Micronizada</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <div>
+                            <div class="text-xl font-bold text-gray-900">R$ 79,90</div>
+                        </div>
+                        <button onclick="adicionarAoCarrinho('Creatina Monohidratada 300g', 79.90)" class="p-3 bg-slate-900 hover:bg-amber-400 hover:text-slate-900 text-white rounded-xl transition-colors">
+                            <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- ========================================== -->
+    <!-- RODAPÉ DE PÁGINA                          -->
+    <!-- ========================================== -->
+    <footer class="bg-white border-t border-gray-100 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-xs text-gray-500">
+            © 2026 PharmaFit Store - Todos os direitos reservados
+        </div>
+    </footer>
+
+
+    <!-- ========================================== -->
+    <!-- SCRIPT JAVASCRIPT (LÓGICA DO CARRINHO)     -->
+    <!-- ========================================== -->
+    <script>
+        // Renderiza os ícones SVG do Lucide nos elementos contendo o atributo 'data-lucide'
+        lucide.createIcons();
+
+        /**
+         * FUNÇÃO: atualizarContador
+         * Busca os itens salvos no localStorage sob a chave 'carrinho'
+         * e atualiza o número exibido no topo da página.
+         */
+        function atualizarContador() {
+            // Obtém a string salva no localStorage ou recupera um array vazio '[]' se nada existir
+            const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+            
+            // Atualiza o texto interno da badge no topo com a quantidade de itens salvos
+            document.getElementById('contador-carrinho').innerText = carrinho.length;
+        }
+
+        /**
+         * FUNÇÃO: adicionarAoCarrinho
+         * Recebe o nome e o preço do produto via parâmetro e salva no localStorage.
+         * 
+         * @param {string} nome - O nome do produto selecionado.
+         * @param {number} preco - O valor numérico do produto.
+         */
+        function adicionarAoCarrinho(nome, preco) {
+            // Busca o carrinho existente no localStorage (ou cria um array novo se não houver)
+            const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+            
+            // Insere o novo produto no array como um objeto JavaScript
+            carrinho.push({ nome: nome, preco: preco });
+            
+            // Converte o array atualizado para texto JSON e o salva de volta no localStorage
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+            
+            // Atualiza o contador visual no topo da página imediatamente
+            atualizarContador();
+            
+            // Exibe um aviso ao usuário confirmando que o item foi adicionado
+            alert(`${nome} foi adicionado ao carrinho!`);
+        }
+
+        // Executa o contador assim que a página é carregada para exibir a quantidade correta mantida na memória do navegador
+        atualizarContador();
+    </script>
+
+</body>
+</html>
