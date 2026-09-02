@@ -1,250 +1,1886 @@
+
 <!DOCTYPE html>
-<!-- Define que o documento é HTML5 e está no idioma Português do Brasil -->
 <html lang="pt-BR">
+
 <head>
-    <!-- Define a codificação de caracteres UTF-8 para suporte a acentos e caracteres especiais -->
+
     <meta charset="UTF-8">
-    
-    <!-- Configura a responsividade para telas de celulares e tablets -->
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Título exibido na aba do navegador -->
-    <title>Carrinho de Compras - FitPharma</title>
 
-    <!-- ========================================== -->
-    <!-- ESTILOS CSS DA PÁGINA                     -->
-    <!-- ========================================== -->
+    <title>Carrinho - GameVerse</title>
+
+    <!-- Fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
     <style>
-        /* Reset padrão: zera margens, espaçamentos e define a caixa com box-sizing */
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-            font-family: Arial, sans-serif; 
+
+        /* ==========================================
+           RESET
+        ========================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        /* Estilo do fundo da página e cor do texto principal */
-        body { 
-            background-color: #f4f6f9; 
-            color: #333; 
+        html {
+            scroll-behavior: smooth;
         }
 
-        /* Cabeçalho da página de carrinho (faixa azul no topo) */
-        header { 
-            background: #004080; 
-            color: white; 
-            padding: 20px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
+        body {
+            font-family: 'Poppins', sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at 80% 10%,
+                    rgba(0, 234, 255, 0.08),
+                    transparent 25%
+                ),
+
+                radial-gradient(
+                    circle at 20% 40%,
+                    rgba(123, 47, 255, 0.08),
+                    transparent 30%
+                ),
+
+                #050713;
+
+            color: #ffffff;
+
+            min-height: 100vh;
         }
 
-        /* Botão laranja no cabeçalho para voltar à página inicial */
-        .back-btn { 
-            background: #ff9900; 
-            color: white; 
-            border: none; 
-            padding: 10px 20px; 
-            border-radius: 5px; 
-            cursor: pointer; 
-            text-decoration: none; 
-            font-weight: bold; 
+        a {
+            text-decoration: none;
+            color: inherit;
         }
 
-        /* Caixa central branca onde ficam a lista de compras e o total */
-        .container { 
-            max-width: 800px; 
-            margin: 30px auto; 
-            background: white; 
-            border-radius: 8px; 
-            padding: 30px; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+        button {
+            font-family: inherit;
         }
 
-        /* Título interno do container ("Seus Produtos Selecionados") */
-        h2 { 
-            margin-bottom: 20px; 
-            color: #004080; 
-            border-bottom: 2px solid #004080; 
-            padding-bottom: 5px; 
+
+        /* ==========================================
+           HEADER
+        ========================================== */
+
+        header {
+
+            width: 100%;
+            height: 75px;
+
+            position: sticky;
+            top: 0;
+
+            z-index: 1000;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 5%;
+
+            background: rgba(5, 7, 19, 0.90);
+
+            backdrop-filter: blur(18px);
+
+            border-bottom:
+                1px solid rgba(0, 234, 255, 0.15);
+
+            box-shadow:
+                0 0 25px rgba(0, 234, 255, 0.05);
         }
 
-        /* Remove as bolinhas/marcadores da lista <ul> de produtos */
-        ul { 
-            list-style: none; 
-            margin-bottom: 20px; 
+
+        /* LOGO */
+
+        .logo {
+
+            font-family: 'Orbitron', sans-serif;
+
+            font-size: 23px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            color: #ffffff;
         }
 
-        /* Estilo de cada item individual <li> adicionado à lista */
-        li { 
-            display: flex; 
-            justify-content: space-between; 
-            padding: 10px 0; 
-            border-bottom: 1px solid #eee; 
+        .logo span {
+
+            color: #00eaff;
+
+            text-shadow:
+                0 0 10px #00eaff,
+                0 0 25px rgba(0, 234, 255, 0.5);
         }
 
-        /* Área onde exibe o valor Total em verde */
-        .total { 
-            font-size: 20px; 
-            font-weight: bold; 
-            text-align: right; 
-            margin-bottom: 30px; 
-            color: #27ae60; 
+
+        /* MENU */
+
+        nav {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
         }
 
-        /* Botão grande verde no rodapé para finalizar a compra */
-        .checkout-btn { 
-            background: #27ae60; 
-            color: white; 
-            border: none; 
-            padding: 15px; 
-            width: 100%; 
-            border-radius: 5px; 
-            font-size: 18px; 
-            cursor: pointer; 
-            font-weight: bold; 
+        nav a {
+
+            padding: 10px 15px;
+
+            border-radius: 8px;
+
+            color: #aeb8d0;
+
+            font-size: 14px;
+
+            transition: 0.3s;
         }
 
-        /* Efeito ao passar o mouse por cima do botão de finalizar */
-        .checkout-btn:hover { 
-            background: #219653; 
+        nav a:hover {
+
+            color: #00eaff;
+
+            background:
+                rgba(0, 234, 255, 0.07);
+
+            box-shadow:
+                0 0 15px rgba(0, 234, 255, 0.08);
         }
 
-        /* Estilo da mensagem exibida quando não houver itens no carrinho */
-        .empty { 
-            text-align: center; 
-            color: #666; 
-            padding: 20px; 
+
+        /* ==========================================
+           CARRINHO NO MENU
+        ========================================== */
+
+        .cart-button {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 10px 18px;
+
+            border:
+                1px solid #00eaff;
+
+            border-radius: 8px;
+
+            color: #00eaff;
+
+            background:
+                rgba(0, 234, 255, 0.06);
+
+            box-shadow:
+                0 0 12px rgba(0, 234, 255, 0.15);
         }
+
+        .cart-button:hover {
+
+            color: #050713;
+
+            background: #00eaff;
+
+            box-shadow:
+                0 0 15px #00eaff,
+                0 0 35px rgba(0, 234, 255, 0.4);
+        }
+
+
+        .cart-count {
+
+            min-width: 20px;
+
+            height: 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #ff2bd6;
+
+            color: white;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+            box-shadow:
+                0 0 10px #ff2bd6;
+        }
+
+
+        /* ==========================================
+           LAYOUT
+        ========================================== */
+
+        .layout {
+
+            display: grid;
+
+            grid-template-columns: 230px 1fr;
+
+            min-height:
+                calc(100vh - 75px);
+        }
+
+
+        /* ==========================================
+           SIDEBAR
+        ========================================== */
+
+        aside {
+
+            padding: 30px 20px;
+
+            border-right:
+                1px solid rgba(0, 234, 255, 0.12);
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(9, 13, 31, 0.95),
+                    rgba(5, 7, 19, 0.85)
+                );
+        }
+
+
+        .sidebar-title {
+
+            font-family: 'Orbitron', sans-serif;
+
+            font-size: 13px;
+
+            letter-spacing: 2px;
+
+            color: #00eaff;
+
+            margin-bottom: 20px;
+        }
+
+
+        .categories {
+
+            list-style: none;
+        }
+
+
+        .categories li {
+
+            margin-bottom: 7px;
+        }
+
+
+        .categories a {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+
+            padding: 12px 14px;
+
+            color: #8f9ab5;
+
+            border-radius: 8px;
+
+            transition: 0.3s;
+        }
+
+
+        .categories a:hover,
+        .categories .active {
+
+            color: #ffffff;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(0, 234, 255, 0.12),
+                    rgba(123, 47, 255, 0.08)
+                );
+
+            border-left:
+                2px solid #00eaff;
+
+            box-shadow:
+                inset 0 0 20px
+                rgba(0, 234, 255, 0.03);
+        }
+
+
+        .categories i {
+
+            width: 18px;
+
+            color: #69748e;
+        }
+
+
+        .categories a:hover i,
+        .categories .active i {
+
+            color: #00eaff;
+        }
+
+
+        /* ==========================================
+           CONTEÚDO
+        ========================================== */
+
+        main {
+
+            padding: 35px;
+
+            width: 100%;
+        }
+
+
+        /* ==========================================
+           TÍTULO
+        ========================================== */
+
+        .page-title {
+
+            margin-bottom: 30px;
+        }
+
+
+        .page-title small {
+
+            color: #00eaff;
+
+            font-family: 'Orbitron', sans-serif;
+
+            font-size: 12px;
+
+            letter-spacing: 3px;
+        }
+
+
+        .page-title h1 {
+
+            font-family: 'Orbitron', sans-serif;
+
+            font-size: 32px;
+
+            margin-top: 8px;
+        }
+
+
+        .page-title h1 span {
+
+            color: #00eaff;
+
+            text-shadow:
+                0 0 15px #00eaff;
+        }
+
+
+        /* ==========================================
+           ÁREA DO CARRINHO
+        ========================================== */
+
+        .cart-layout {
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1fr) 320px;
+
+            gap: 25px;
+
+            align-items: start;
+        }
+
+
+        /* ==========================================
+           CARD PRINCIPAL
+        ========================================== */
+
+        .cart-card {
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(12, 17, 38, 0.96),
+                    rgba(7, 10, 25, 0.96)
+                );
+
+            border:
+                1px solid rgba(0, 234, 255, 0.14);
+
+            border-radius: 15px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 0 30px rgba(0, 0, 0, 0.25);
+        }
+
+
+        .cart-card-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 20px;
+
+            padding-bottom: 15px;
+
+            border-bottom:
+                1px solid rgba(255,255,255,0.06);
+        }
+
+
+        .cart-card-header h2 {
+
+            font-family: 'Orbitron', sans-serif;
+
+            font-size: 18px;
+        }
+
+
+        .cart-card-header h2::before {
+
+            content: "//";
+
+            color: #00eaff;
+
+            margin-right: 8px;
+        }
+
+
+        /* ==========================================
+           LISTA
+        ========================================== */
+
+        #lista-carrinho {
+
+            list-style: none;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 12px;
+        }
+
+
+        /* ITEM */
+
+        #lista-carrinho li {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+
+            padding: 18px;
+
+            background:
+                rgba(255,255,255,0.025);
+
+            border:
+                1px solid rgba(255,255,255,0.06);
+
+            border-radius: 10px;
+
+            transition: 0.3s;
+        }
+
+
+        #lista-carrinho li:hover {
+
+            border-color:
+                rgba(0,234,255,0.3);
+
+            background:
+                rgba(0,234,255,0.035);
+
+            transform:
+                translateX(3px);
+        }
+
+
+        .product-info {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+        }
+
+
+        .product-icon {
+
+            width: 55px;
+
+            height: 55px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 9px;
+
+            color: #00eaff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(0,234,255,0.12),
+                    rgba(123,47,255,0.15)
+                );
+
+            border:
+                1px solid rgba(0,234,255,0.15);
+
+            box-shadow:
+                0 0 15px rgba(0,234,255,0.05);
+        }
+
+
+        .product-name {
+
+            font-weight: 600;
+
+            color: #ffffff;
+
+            margin-bottom: 4px;
+        }
+
+
+        .product-type {
+
+            color: #66728c;
+
+            font-size: 12px;
+        }
+
+
+        .product-price {
+
+            color: #00eaff;
+
+            font-family: 'Orbitron', sans-serif;
+
+            font-weight: 600;
+
+            white-space: nowrap;
+        }
+
+
+        /* BOTÃO REMOVER */
+
+        .remove-button {
+
+            width: 34px;
+
+            height: 34px;
+
+            border:
+                1px solid rgba(255, 60, 100, 0.3);
+
+            border-radius: 6px;
+
+            background:
+                rgba(255, 60, 100, 0.08);
+
+            color: #ff5577;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+
+        .remove-button:hover {
+
+            background: #ff4268;
+
+            color: white;
+
+            box-shadow:
+                0 0 15px rgba(255, 66, 104, 0.5);
+        }
+
+
+        /* ==========================================
+           CARRINHO VAZIO
+        ========================================== */
+
+        .empty {
+
+            padding: 70px 20px;
+
+            text-align: center;
+
+            color: #69748e;
+        }
+
+
+        .empty i {
+
+            display: block;
+
+            font-size: 55px;
+
+            color: #00eaff;
+
+            margin-bottom: 20px;
+
+            opacity: 0.6;
+
+            filter:
+                drop-shadow(0 0 15px #00eaff);
+        }
+
+
+        .empty strong {
+
+            display: block;
+
+            color: #ffffff;
+
+            font-size: 18px;
+
+            margin-bottom: 8px;
+        }
+
+
+        /* ==========================================
+           RESUMO
+        ========================================== */
+
+        .summary {
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(12, 17, 38, 0.96),
+                    rgba(7, 10, 25, 0.96)
+                );
+
+            border:
+                1px solid rgba(123, 47, 255, 0.25);
+
+            border-radius: 15px;
+
+            padding: 25px;
+
+            position: sticky;
+
+            top: 100px;
+
+            box-shadow:
+                0 0 30px rgba(123,47,255,0.06);
+        }
+
+
+        .summary h2 {
+
+            font-family: 'Orbitron', sans-serif;
+
+            font-size: 17px;
+
+            margin-bottom: 25px;
+
+            color: #ffffff;
+        }
+
+
+        .summary-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 14px;
+
+            color: #8b96ad;
+
+            font-size: 14px;
+        }
+
+
+        .summary-divider {
+
+            border: 0;
+
+            border-top:
+                1px solid rgba(255,255,255,0.07);
+
+            margin: 20px 0;
+        }
+
+
+        .total {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 25px;
+        }
+
+
+        .total span:first-child {
+
+            color: #ffffff;
+
+            font-weight: 600;
+        }
+
+
+        .total-price {
+
+            color: #00eaff;
+
+            font-family: 'Orbitron', sans-serif;
+
+            font-size: 21px;
+
+            font-weight: 700;
+
+            text-shadow:
+                0 0 10px rgba(0,234,255,0.5);
+        }
+
+
+        /* ==========================================
+           BOTÃO FINALIZAR
+        ========================================== */
+
+        .checkout-btn {
+
+            width: 100%;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            color: #050713;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #00eaff,
+                    #00ffc8
+                );
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+            box-shadow:
+                0 0 15px rgba(0,234,255,0.25);
+        }
+
+
+        .checkout-btn:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 0 20px #00eaff,
+                0 0 40px rgba(0,234,255,0.25);
+        }
+
+
+        .continue-btn {
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            gap: 8px;
+
+            margin-top: 12px;
+
+            padding: 12px;
+
+            border:
+                1px solid rgba(0,234,255,0.25);
+
+            border-radius: 8px;
+
+            color: #8d98b0;
+
+            font-size: 13px;
+
+            transition: 0.3s;
+        }
+
+
+        .continue-btn:hover {
+
+            color: #00eaff;
+
+            border-color: #00eaff;
+        }
+
+
+        /* ==========================================
+           FOOTER
+        ========================================== */
+
+        footer {
+
+            margin-top: 60px;
+
+            padding:
+                45px 5% 25px;
+
+            border-top:
+                1px solid rgba(0,234,255,0.12);
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #070a17,
+                    #03040a
+                );
+        }
+
+
+        .footer-content {
+
+            display: grid;
+
+            grid-template-columns:
+                2fr 1fr 1fr 1fr;
+
+            gap: 40px;
+        }
+
+
+        .footer-logo {
+
+            font-family: 'Orbitron', sans-serif;
+
+            font-size: 20px;
+
+            font-weight: 800;
+
+            margin-bottom: 15px;
+        }
+
+
+        .footer-logo span {
+
+            color: #00eaff;
+        }
+
+
+        .footer-description {
+
+            max-width: 350px;
+
+            color: #737e98;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+        }
+
+
+        .footer-column h3 {
+
+            font-family: 'Orbitron', sans-serif;
+
+            font-size: 12px;
+
+            color: #00eaff;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .footer-column a {
+
+            display: block;
+
+            color: #727d97;
+
+            font-size: 13px;
+
+            margin-bottom: 9px;
+
+            transition: 0.3s;
+        }
+
+
+        .footer-column a:hover {
+
+            color: #ffffff;
+
+            padding-left: 4px;
+        }
+
+
+        .socials {
+
+            display: flex;
+
+            gap: 10px;
+
+            margin-top: 20px;
+        }
+
+
+        .socials a {
+
+            width: 35px;
+
+            height: 35px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border:
+                1px solid rgba(0,234,255,0.2);
+
+            border-radius: 7px;
+
+            color: #00eaff;
+
+            transition: 0.3s;
+        }
+
+
+        .socials a:hover {
+
+            background: #00eaff;
+
+            color: #050713;
+
+            box-shadow:
+                0 0 15px rgba(0,234,255,0.5);
+        }
+
+
+        .copyright {
+
+            margin-top: 35px;
+
+            padding-top: 20px;
+
+            border-top:
+                1px solid rgba(255,255,255,0.05);
+
+            text-align: center;
+
+            color: #4e5870;
+
+            font-size: 11px;
+        }
+
+
+        /* ==========================================
+           RESPONSIVIDADE
+        ========================================== */
+
+        @media (max-width: 950px) {
+
+            .cart-layout {
+
+                grid-template-columns: 1fr;
+            }
+
+            .summary {
+
+                position: static;
+            }
+
+            .footer-content {
+
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+
+        @media (max-width: 750px) {
+
+            header {
+
+                height: auto;
+
+                min-height: 70px;
+
+                flex-wrap: wrap;
+
+                padding:
+                    15px 20px;
+
+                gap: 10px;
+            }
+
+
+            nav {
+
+                width: 100%;
+
+                justify-content: center;
+
+                flex-wrap: wrap;
+            }
+
+
+            .layout {
+
+                display: block;
+            }
+
+
+            aside {
+
+                border-right: none;
+
+                border-bottom:
+                    1px solid rgba(0,234,255,0.12);
+            }
+
+
+            .categories {
+
+                display: grid;
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+                gap: 5px;
+            }
+
+
+            main {
+
+                padding: 20px;
+            }
+
+
+            .cart-layout {
+
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        @media (max-width: 500px) {
+
+            .categories {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            #lista-carrinho li {
+
+                flex-wrap: wrap;
+            }
+
+
+            .product-info {
+
+                width: 100%;
+            }
+
+
+            .footer-content {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .page-title h1 {
+
+                font-size: 26px;
+            }
+        }
+
     </style>
+
 </head>
+
+
 <body>
 
-    <!-- ========================================== -->
-    <!-- CABEÇALHO DA PÁGINA                       -->
-    <!-- ========================================== -->
-    <header>
-        <h1>Carrinho de Compras</h1>
-        <!-- Link do Django que direciona de volta para a rota 'home' -->
-        <a href="{% url 'home' %}" class="back-btn">← Continuar Comprando</a>
-    </header>
 
-    <!-- ========================================== -->
-    <!-- CONTAINER PRINCIPAL DO CARRINHO            -->
-    <!-- ========================================== -->
-    <div class="container">
-        <h2>Seus Produtos Selecionados</h2>
-        
-        <!-- Elemento ul que receberá as li com os produtos via JavaScript -->
-        <ul id="lista-carrinho">
-            <!-- Os itens aparecem aqui dinamicamente via JS -->
+<!-- ==========================================
+     MENU SUPERIOR
+========================================== -->
+
+<header>
+
+    <a href="{% url 'home' %}" class="logo">
+        GAME<span>VERSE</span>
+    </a>
+
+
+    <nav>
+
+        <a href="{% url 'app' %}">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+
+        <a href="{% url 'cadastro' %}">
+            <i class="fa-solid fa-house"></i>
+            Cadastro
+        </a>
+
+        <a href="{% url 'login' %}">
+            <i class="fa-solid fa-house"></i>
+            Login
+        </a>
+
+        <a href="#" class="cart-button">
+
+            <i class="fa-solid fa-cart-shopping"></i>
+
+            Carrinho
+
+            <span class="cart-count" id="contador-carrinho">
+                0
+            </span>
+
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- ==========================================
+     LAYOUT
+========================================== -->
+
+<div class="layout">
+
+
+    <!-- ======================================
+         MENU LATERAL
+    ======================================= -->
+
+    <aside>
+
+        <div class="sidebar-title">
+            CATEGORIAS
+        </div>
+
+
+        <ul class="categories">
+
+            <li>
+                <a href="#" class="active">
+                    <i class="fa-solid fa-crosshairs"></i>
+                    Ação
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-map"></i>
+                    Aventura
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-hat-wizard"></i>
+                    RPG
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-chess"></i>
+                    Estratégia
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-futbol"></i>
+                    Esportes
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-car"></i>
+                    Corrida
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-ghost"></i>
+                    Terror
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-palette"></i>
+                    Indie
+                </a>
+            </li>
+
         </ul>
-        
-        <!-- Elemento div onde será impresso o valor total calculado -->
-        <div class="total" id="total-carrinho">Total: R$ 0,00</div>
 
-        <!-- Botão para disparar a função JS de finalização do pedido -->
-        <button class="checkout-btn" onclick="finalizarCompra()">Finalizar Pedido</button>
-    </div>
+    </aside>
 
-    <!-- ========================================== -->
-    <!-- LÓGICA JAVASCRIPT                          -->
-    <!-- ========================================== -->
-    <script>
-        // 1. Busca os dados salvos no localStorage sob a chave 'carrinho'.
-        // Se houver dados, converte de texto JSON para Array/Objetos. Se não houver nada, cria um Array vazio [].
-        const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
 
-        // 2. Mapeia os elementos do HTML que serão manipulados dinamicamente
-        const listaElemento = document.getElementById('lista-carrinho');
-        const totalElemento = document.getElementById('total-carrinho');
+    <!-- ======================================
+         CONTEÚDO
+    ======================================= -->
 
-        /**
-         * FUNÇÃO: carregarCarrinho
-         * Responsável por ler o array 'carrinho', montar a lista de itens na tela e calcular o valor total.
-         */
-        function carregarCarrinho() {
-            // Limpa todo o conteúdo visual anterior da lista <ul>
-            listaElemento.innerHTML = '';
+    <main>
 
-            // Se o array de produtos estiver vazio:
-            if (carrinho.length === 0) {
-                // Exibe a mensagem de carrinho vazio dentro da lista
-                listaElemento.innerHTML = '<p class="empty">Seu carrinho está vazio.</p>';
-                // Mantém o total zerado
-                totalElemento.innerText = 'Total: R$ 0,00';
-                // Encerra a execução da função aqui
-                return;
-            }
 
-            // Variável acumuladora para guardar a soma dos preços
-            let total = 0;
+        <!-- TÍTULO -->
 
-            // Percorre cada item armazenado no array do carrinho
-            // 'item' é o objeto do produto atual; 'index' é a posição (0, 1, 2...) no array
-            carrinho.forEach((item, index) => {
-                // Soma o preço do produto atual à variável acumuladora total
-                total += item.preco;
+        <div class="page-title">
 
-                // Cria dinamicamente uma nova tag <li> na memória do navegador
-                const li = document.createElement('li');
+            <small>GAMEVERSE STORE</small>
 
-                // Preenche o conteúdo HTML da tag <li> com o nome, preço formatado e o botão de exclusão [X]
-                li.innerHTML = `
-                    <span>${item.nome}</span>
-                    <span>R$ ${item.preco.toFixed(2).replace('.', ',')} 
-                        <button onclick="removerItem(${index})" style="background:#e74c3c; color:white; border:none; padding:3px 8px; border-radius:3px; cursor:pointer; margin-left:10px;">X</button>
+            <h1>
+                SEU <span>CARRINHO</span>
+            </h1>
+
+        </div>
+
+
+        <!-- ==================================
+             CARRINHO + RESUMO
+        =================================== -->
+
+        <div class="cart-layout">
+
+
+            <!-- LISTA DE PRODUTOS -->
+
+            <section class="cart-card">
+
+                <div class="cart-card-header">
+
+                    <h2>
+                        PRODUTOS SELECIONADOS
+                    </h2>
+
+                    <span id="quantidade-produtos">
+                        0 itens
                     </span>
+
+                </div>
+
+
+                <ul id="lista-carrinho">
+
+                    <!-- Produtos inseridos via JavaScript -->
+
+                </ul>
+
+            </section>
+
+
+            <!-- RESUMO -->
+
+            <aside class="summary">
+
+                <h2>
+                    RESUMO DA COMPRA
+                </h2>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Produtos
+                    </span>
+
+                    <span id="resumo-itens">
+                        0
+                    </span>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Subtotal
+                    </span>
+
+                    <span id="subtotal">
+                        R$ 0,00
+                    </span>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Desconto
+                    </span>
+
+                    <span>
+                        R$ 0,00
+                    </span>
+
+                </div>
+
+
+                <hr class="summary-divider">
+
+
+                <div class="total">
+
+                    <span>
+                        TOTAL
+                    </span>
+
+                    <span
+                        class="total-price"
+                        id="total-carrinho">
+                        R$ 0,00
+                    </span>
+
+                </div>
+
+
+                <button
+                    class="checkout-btn"
+                    onclick="finalizarCompra()">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    FINALIZAR PEDIDO
+
+                </button>
+
+
+                <a
+                    href="{% url 'app' %}"
+                    class="continue-btn">
+
+                    <i class="fa-solid fa-arrow-left"></i>
+
+                    Continuar Comprando
+
+                </a>
+
+            </aside>
+
+        </div>
+
+
+        <!-- ==================================
+             FOOTER
+        =================================== -->
+
+        <footer>
+
+            <div class="footer-content">
+
+
+                <!-- SOBRE -->
+
+                <div>
+
+                    <div class="footer-logo">
+
+                        GAME<span>VERSE</span>
+
+                    </div>
+
+
+                    <p class="footer-description">
+
+                        Sua plataforma de jogos digitais.
+                        Encontre grandes aventuras,
+                        lançamentos e experiências
+                        incríveis para todos os jogadores.
+
+                    </p>
+
+
+                    <div class="socials">
+
+                        <a href="#">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+
+                        <a href="#">
+                            <i class="fa-brands fa-facebook"></i>
+                        </a>
+
+                        <a href="#">
+                            <i class="fa-brands fa-discord"></i>
+                        </a>
+
+                        <a href="#">
+                            <i class="fa-brands fa-x-twitter"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- LOJA -->
+
+                <div class="footer-column">
+
+                    <h3>LOJA</h3>
+
+                    <a href="#">
+                        Jogos
+                    </a>
+
+                    <a href="#">
+                        Promoções
+                    </a>
+
+                    <a href="#">
+                        Mais vendidos
+                    </a>
+
+                    <a href="#">
+                        Lançamentos
+                    </a>
+
+                </div>
+
+
+                <!-- SUPORTE -->
+
+                <div class="footer-column">
+
+                    <h3>SUPORTE</h3>
+
+                    <a href="#">
+                        Central de ajuda
+                    </a>
+
+                    <a href="#">
+                        Contato
+                    </a>
+
+                    <a href="#">
+                        FAQ
+                    </a>
+
+                    <a href="#">
+                        Reembolsos
+                    </a>
+
+                </div>
+
+
+                <!-- EMPRESA -->
+
+                <div class="footer-column">
+
+                    <h3>EMPRESA</h3>
+
+                    <a href="#">
+                        Sobre nós
+                    </a>
+
+                    <a href="#">
+                        Termos de uso
+                    </a>
+
+                    <a href="#">
+                        Privacidade
+                    </a>
+
+                    <a href="#">
+                        Cookies
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="copyright">
+
+                © 2026 GameVerse.
+                Todos os direitos reservados.
+
+            </div>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<!-- ==========================================
+     JAVASCRIPT
+========================================== -->
+
+<script>
+
+    /*
+    ============================================
+    CARREGAMENTO DO CARRINHO
+    ============================================
+    */
+
+    const carrinho =
+        JSON.parse(
+            localStorage.getItem('carrinho')
+        ) || [];
+
+
+    const listaElemento =
+        document.getElementById(
+            'lista-carrinho'
+        );
+
+
+    const totalElemento =
+        document.getElementById(
+            'total-carrinho'
+        );
+
+
+    const contadorCarrinho =
+        document.getElementById(
+            'contador-carrinho'
+        );
+
+
+    const quantidadeProdutos =
+        document.getElementById(
+            'quantidade-produtos'
+        );
+
+
+    const resumoItens =
+        document.getElementById(
+            'resumo-itens'
+        );
+
+
+    const subtotalElemento =
+        document.getElementById(
+            'subtotal'
+        );
+
+
+    /*
+    ============================================
+    FORMATAR MOEDA
+    ============================================
+    */
+
+    function formatarMoeda(valor) {
+
+        return valor.toLocaleString(
+            'pt-BR',
+            {
+                style: 'currency',
+                currency: 'BRL'
+            }
+        );
+
+    }
+
+
+    /*
+    ============================================
+    CARREGAR CARRINHO
+    ============================================
+    */
+
+    function carregarCarrinho() {
+
+        listaElemento.innerHTML = '';
+
+
+        /*
+        Atualiza contador do menu
+        */
+
+        contadorCarrinho.innerText =
+            carrinho.length;
+
+
+        quantidadeProdutos.innerText =
+            `${carrinho.length} ${
+                carrinho.length === 1
+                ? 'item'
+                : 'itens'
+            }`;
+
+
+        resumoItens.innerText =
+            carrinho.length;
+
+
+        /*
+        Caso não tenha produtos
+        */
+
+        if (carrinho.length === 0) {
+
+            listaElemento.innerHTML = `
+
+                <div class="empty">
+
+                    <i class="fa-solid fa-cart-shopping"></i>
+
+                    <strong>
+                        Seu carrinho está vazio
+                    </strong>
+
+                    <span>
+                        Explore nossa loja e
+                        encontre seu próximo jogo.
+                    </span>
+
+                </div>
+
+            `;
+
+
+            totalElemento.innerText =
+                'R$ 0,00';
+
+
+            subtotalElemento.innerText =
+                'R$ 0,00';
+
+
+            return;
+
+        }
+
+
+        /*
+        Calcula total
+        */
+
+        let total = 0;
+
+
+        /*
+        Percorre produtos
+        */
+
+        carrinho.forEach(
+            (item, index) => {
+
+                total += Number(item.preco);
+
+
+                const li =
+                    document.createElement('li');
+
+
+                li.innerHTML = `
+
+                    <div class="product-info">
+
+                        <div class="product-icon">
+
+                            <i class="fa-solid fa-gamepad"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <div class="product-name">
+
+                                ${item.nome}
+
+                            </div>
+
+
+                            <div class="product-type">
+
+                                Jogo Digital
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div style="
+                        display:flex;
+                        align-items:center;
+                        gap:15px;
+                    ">
+
+                        <span class="product-price">
+
+                            ${formatarMoeda(
+                                Number(item.preco)
+                            )}
+
+                        </span>
+
+
+                        <button
+                            class="remove-button"
+                            onclick="removerItem(${index})"
+                            title="Remover produto">
+
+                            <i class="fa-solid fa-trash"></i>
+
+                        </button>
+
+                    </div>
+
                 `;
 
-                // Insere a tag <li> criada dentro da tag <ul> (listaElemento) na página
+
                 listaElemento.appendChild(li);
-            });
 
-            // Formata o valor total calculado para 2 casas decimais e troca o ponto por vírgula no padrão brasileiro (R$)
-            totalElemento.innerText = `Total: R$ ${total.toFixed(2).replace('.', ',')}`;
-        }
-
-        /**
-         * FUNÇÃO: removerItem
-         * Remove um produto do carrinho com base no seu índice no Array.
-         * 
-         * @param {number} index - Posição do produto no array 'carrinho'
-         */
-        function removerItem(index) {
-            // Remove 1 elemento do array a partir da posição 'index' informada
-            carrinho.splice(index, 1);
-
-            // Grava a nova versão do array atualizado de volta no localStorage do navegador
-            localStorage.setItem('carrinho', JSON.stringify(carrinho));
-
-            // Recarrega a visualização do carrinho na tela para atualizar a lista e o preço total
-            carregarCarrinho();
-        }
-
-        /**
-         * FUNÇÃO: finalizarCompra
-         * Processa a conclusão do pedido do usuário.
-         */
-        function finalizarCompra() {
-            // Caso o carrinho esteja sem produtos, bloqueia a finalização
-            if (carrinho.length === 0) {
-                alert("Seu carrinho está vazio!");
-                return;
             }
+        );
 
-            // Notifica o usuário sobre a conclusão bem-sucedida
-            alert("Compra finalizada com sucesso! Obrigado por comprar na FitPharma.");
 
-            // Apaga totalmente o item 'carrinho' gravado no localStorage
-            localStorage.removeItem('carrinho');
+        /*
+        Atualiza valores
+        */
 
-            // Redireciona o usuário de volta para a página inicial
-            window.location.href = 'index.html';
+        totalElemento.innerText =
+            formatarMoeda(total);
+
+
+        subtotalElemento.innerText =
+            formatarMoeda(total);
+
+    }
+
+
+    /*
+    ============================================
+    REMOVER PRODUTO
+    ============================================
+    */
+
+    function removerItem(index) {
+
+        carrinho.splice(index, 1);
+
+
+        localStorage.setItem(
+            'carrinho',
+            JSON.stringify(carrinho)
+        );
+
+
+        carregarCarrinho();
+
+    }
+
+
+    /*
+    ============================================
+    FINALIZAR COMPRA
+    ============================================
+    */
+
+    function finalizarCompra() {
+
+        if (carrinho.length === 0) {
+
+            alert(
+                "Seu carrinho está vazio!"
+            );
+
+            return;
+
         }
 
-        // Executa a função automaticamente no momento em que a página é aberta/carregada
-        carregarCarrinho();
-    </script>
+
+        alert(
+            "Compra finalizada com sucesso! " +
+            "Obrigado por comprar na GameVerse."
+        );
+
+
+        localStorage.removeItem(
+            'carrinho'
+        );
+
+
+        window.location.href =
+            "{% url 'home' %}";
+
+    }
+
+
+    /*
+    ============================================
+    INICIALIZAÇÃO
+    ============================================
+    */
+
+    carregarCarrinho();
+
+</script>
+
+
 </body>
+
 </html>
+

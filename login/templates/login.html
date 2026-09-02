@@ -1,116 +1,1450 @@
+```html
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Fonte Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <title>GameVerse | Login</title>
+
+    <!-- =========================
+         FONTES
+    ========================== -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- =========================
+         ÍCONES
+    ========================== -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
     <style>
-        body { font-family: 'Inter', sans-serif; }
+
+        /* =========================
+           RESET
+        ========================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at 80% 10%,
+                    rgba(0, 225, 255, 0.08),
+                    transparent 25%
+                ),
+                radial-gradient(
+                    circle at 20% 40%,
+                    rgba(123, 47, 255, 0.08),
+                    transparent 30%
+                ),
+                #050713;
+
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================== */
+
+        header {
+            min-height: 75px;
+            width: 100%;
+
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 5%;
+
+            background: rgba(5, 7, 19, 0.90);
+
+            backdrop-filter: blur(18px);
+
+            border-bottom:
+                1px solid rgba(0, 234, 255, 0.15);
+
+            box-shadow:
+                0 0 25px rgba(0, 234, 255, 0.05);
+        }
+
+
+        /* =========================
+           LOGO
+        ========================== */
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+
+            font-size: 23px;
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            color: #ffffff;
+        }
+
+        .logo span {
+            color: #00eaff;
+
+            text-shadow:
+                0 0 10px #00eaff,
+                0 0 25px rgba(0, 234, 255, 0.5);
+        }
+
+
+        /* =========================
+           MENU
+        ========================== */
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        nav a {
+            padding: 10px 15px;
+
+            border-radius: 8px;
+
+            color: #aeb8d0;
+
+            font-size: 14px;
+
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #00eaff;
+
+            background:
+                rgba(0, 234, 255, 0.07);
+
+            box-shadow:
+                0 0 15px rgba(0, 234, 255, 0.08);
+        }
+
+
+        /* =========================
+           CARRINHO
+        ========================== */
+
+        .cart-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 10px 18px;
+
+            border:
+                1px solid #00eaff;
+
+            border-radius: 8px;
+
+            color: #00eaff;
+
+            background:
+                rgba(0, 234, 255, 0.06);
+
+            box-shadow:
+                0 0 12px rgba(0, 234, 255, 0.15);
+
+            transition: 0.3s;
+        }
+
+        .cart-button:hover {
+            color: #050713;
+
+            background: #00eaff;
+
+            box-shadow:
+                0 0 15px #00eaff,
+                0 0 35px rgba(0, 234, 255, 0.4);
+
+            transform: translateY(-2px);
+        }
+
+        .cart-count {
+            min-width: 20px;
+            height: 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #ff2bd6;
+
+            color: white;
+
+            font-size: 11px;
+            font-weight: bold;
+
+            box-shadow:
+                0 0 10px #ff2bd6;
+        }
+
+
+        /* =========================
+           LAYOUT
+        ========================== */
+
+        .layout {
+            display: grid;
+
+            grid-template-columns:
+                230px 1fr;
+
+            min-height:
+                calc(100vh - 75px);
+        }
+
+
+        /* =========================
+           SIDEBAR
+        ========================== */
+
+        aside {
+            padding: 30px 20px;
+
+            border-right:
+                1px solid rgba(0, 234, 255, 0.12);
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(9, 13, 31, 0.95),
+                    rgba(5, 7, 19, 0.85)
+                );
+        }
+
+        .sidebar-title {
+            font-family: 'Orbitron', sans-serif;
+
+            font-size: 13px;
+
+            letter-spacing: 2px;
+
+            color: #00eaff;
+
+            margin-bottom: 20px;
+        }
+
+        .categories {
+            list-style: none;
+        }
+
+        .categories li {
+            margin-bottom: 7px;
+        }
+
+        .categories a {
+            display: flex;
+            align-items: center;
+
+            gap: 13px;
+
+            padding: 12px 14px;
+
+            color: #8f9ab5;
+
+            border-radius: 8px;
+
+            transition: 0.3s;
+        }
+
+        .categories a:hover,
+        .categories .active {
+            color: #ffffff;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(0, 234, 255, 0.12),
+                    rgba(123, 47, 255, 0.08)
+                );
+
+            border-left:
+                2px solid #00eaff;
+
+            box-shadow:
+                inset 0 0 20px rgba(0, 234, 255, 0.03);
+        }
+
+        .categories i {
+            width: 18px;
+
+            color: #69748e;
+        }
+
+        .categories a:hover i,
+        .categories .active i {
+            color: #00eaff;
+        }
+
+
+        /* =========================
+           CONTEÚDO
+        ========================== */
+
+        main {
+            padding: 35px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            min-height: calc(100vh - 75px);
+        }
+
+
+        /* =========================
+           LOGIN AREA
+        ========================== */
+
+        .login-wrapper {
+            width: 100%;
+            max-width: 470px;
+        }
+
+
+        /* =========================
+           LOGIN CARD
+        ========================== */
+
+        .login-card {
+            position: relative;
+
+            padding: 40px;
+
+            border:
+                1px solid rgba(0, 234, 255, 0.20);
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(12, 18, 40, 0.98),
+                    rgba(8, 12, 29, 0.98)
+                );
+
+            box-shadow:
+                0 0 35px rgba(0, 234, 255, 0.06);
+
+            overflow: hidden;
+        }
+
+        .login-card::before {
+            content: "";
+
+            position: absolute;
+
+            width: 220px;
+            height: 220px;
+
+            top: -120px;
+            right: -100px;
+
+            border-radius: 50%;
+
+            border:
+                1px solid rgba(0, 234, 255, 0.25);
+
+            box-shadow:
+                0 0 40px rgba(0, 234, 255, 0.12);
+        }
+
+
+        /* =========================
+           LOGIN LOGO
+        ========================== */
+
+        .login-logo {
+            width: 65px;
+            height: 65px;
+
+            margin: 0 auto 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border:
+                1px solid #00eaff;
+
+            border-radius: 15px;
+
+            background:
+                rgba(0, 234, 255, 0.07);
+
+            color: #00eaff;
+
+            font-size: 27px;
+
+            box-shadow:
+                0 0 20px rgba(0, 234, 255, 0.18);
+        }
+
+
+        /* =========================
+           TÍTULO
+        ========================== */
+
+        .login-card h1 {
+            position: relative;
+
+            font-family: 'Orbitron', sans-serif;
+
+            text-align: center;
+
+            font-size: 27px;
+
+            margin-bottom: 8px;
+        }
+
+        .login-card h1 span {
+            color: #00eaff;
+
+            text-shadow:
+                0 0 12px rgba(0, 234, 255, 0.5);
+        }
+
+        .login-subtitle {
+            text-align: center;
+
+            color: #727e99;
+
+            font-size: 13px;
+
+            margin-bottom: 30px;
+        }
+
+
+        /* =========================
+           MENSAGENS DJANGO
+        ========================== */
+
+        .messages {
+            margin-bottom: 20px;
+        }
+
+        .message {
+            padding: 12px;
+
+            border:
+                1px solid rgba(255, 43, 214, 0.35);
+
+            border-radius: 8px;
+
+            background:
+                rgba(255, 43, 214, 0.08);
+
+            color: #ff79df;
+
+            font-size: 13px;
+
+            text-align: center;
+        }
+
+
+        /* =========================
+           FORMULÁRIO
+        ========================== */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #aeb8d0;
+
+            font-size: 13px;
+
+            font-weight: 500;
+        }
+
+        .form-group label i {
+            color: #00eaff;
+
+            margin-right: 7px;
+        }
+
+
+        /* =========================
+           INPUT
+        ========================== */
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper > i {
+            position: absolute;
+
+            left: 15px;
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            color: #58647f;
+
+            pointer-events: none;
+
+            transition: 0.3s;
+        }
+
+        .form-group input {
+            width: 100%;
+
+            padding: 14px 45px;
+
+            border:
+                1px solid rgba(255, 255, 255, 0.08);
+
+            border-radius: 8px;
+
+            outline: none;
+
+            background:
+                #080d1d;
+
+            color: #ffffff;
+
+            font-size: 13px;
+
+            transition: 0.3s;
+        }
+
+        .form-group input::placeholder {
+            color: #4f5a72;
+        }
+
+        .form-group input:focus {
+            border-color: #00eaff;
+
+            background:
+                #0a1022;
+
+            box-shadow:
+                0 0 15px rgba(0, 234, 255, 0.08);
+        }
+
+        .input-wrapper:focus-within > i {
+            color: #00eaff;
+        }
+
+
+        /* =========================
+           MOSTRAR SENHA
+        ========================== */
+
+        .password-toggle {
+            position: absolute;
+
+            right: 14px;
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            border: none;
+
+            background: transparent;
+
+            color: #58647f;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .password-toggle:hover {
+            color: #00eaff;
+        }
+
+
+        /* =========================
+           BOTÃO LOGIN
+        ========================== */
+
+        .login-button {
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 10px;
+
+            padding: 14px;
+
+            margin-top: 10px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #00eaff,
+                    #7b2fff
+                );
+
+            color: #ffffff;
+
+            font-family: 'Orbitron', sans-serif;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            letter-spacing: 1px;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 0 20px rgba(0, 234, 255, 0.20);
+
+            transition: 0.3s;
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 0 20px rgba(0, 234, 255, 0.35),
+                0 0 35px rgba(123, 47, 255, 0.20);
+        }
+
+
+        /* =========================
+           LINK CADASTRO
+        ========================== */
+
+        .register-link {
+            text-align: center;
+
+            margin-top: 25px;
+
+            padding-top: 20px;
+
+            border-top:
+                1px solid rgba(255,255,255,0.05);
+
+            color: #727e99;
+
+            font-size: 13px;
+        }
+
+        .register-link a {
+            color: #00eaff;
+
+            font-weight: 600;
+
+            transition: 0.3s;
+        }
+
+        .register-link a:hover {
+            color: #ffffff;
+
+            text-shadow:
+                0 0 10px #00eaff;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        footer {
+            margin-left: 230px;
+
+            padding: 45px 5% 25px;
+
+            border-top:
+                1px solid rgba(0, 234, 255, 0.12);
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #070a17,
+                    #03040a
+                );
+        }
+
+        .footer-content {
+            display: grid;
+
+            grid-template-columns:
+                2fr 1fr 1fr 1fr;
+
+            gap: 40px;
+        }
+
+        .footer-logo {
+            font-family: 'Orbitron', sans-serif;
+
+            font-size: 20px;
+
+            font-weight: 800;
+
+            margin-bottom: 15px;
+        }
+
+        .footer-logo span {
+            color: #00eaff;
+        }
+
+        .footer-description {
+            max-width: 350px;
+
+            color: #737e98;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+        }
+
+        .footer-column h3 {
+            font-family: 'Orbitron', sans-serif;
+
+            font-size: 12px;
+
+            color: #00eaff;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 15px;
+        }
+
+        .footer-column a {
+            display: block;
+
+            color: #727d97;
+
+            font-size: 13px;
+
+            margin-bottom: 9px;
+
+            transition: 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: #ffffff;
+
+            padding-left: 4px;
+        }
+
+        .socials {
+            display: flex;
+
+            gap: 10px;
+
+            margin-top: 20px;
+        }
+
+        .socials a {
+            width: 35px;
+            height: 35px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border:
+                1px solid rgba(0, 234, 255, 0.2);
+
+            border-radius: 7px;
+
+            color: #00eaff;
+
+            transition: 0.3s;
+        }
+
+        .socials a:hover {
+            background: #00eaff;
+
+            color: #050713;
+
+            box-shadow:
+                0 0 15px rgba(0, 234, 255, 0.5);
+        }
+
+        .copyright {
+            margin-top: 35px;
+
+            padding-top: 20px;
+
+            border-top:
+                1px solid rgba(255,255,255,0.05);
+
+            text-align: center;
+
+            color: #4e5870;
+
+            font-size: 11px;
+        }
+
+
+        /* =========================
+           RESPONSIVIDADE
+        ========================== */
+
+        @media (max-width: 900px) {
+
+            .layout {
+                grid-template-columns: 180px 1fr;
+            }
+
+            footer {
+                margin-left: 180px;
+            }
+
+            nav a {
+                padding: 8px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+
+        @media (max-width: 700px) {
+
+            header {
+                height: auto;
+
+                min-height: 70px;
+
+                flex-wrap: wrap;
+
+                padding: 15px 20px;
+
+                gap: 10px;
+            }
+
+            nav {
+                width: 100%;
+
+                justify-content: center;
+
+                flex-wrap: wrap;
+            }
+
+            .layout {
+                display: block;
+            }
+
+            aside {
+                border-right: none;
+
+                border-bottom:
+                    1px solid rgba(0, 234, 255, 0.12);
+            }
+
+            .categories {
+                display: grid;
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            main {
+                padding: 20px;
+
+                min-height: auto;
+            }
+
+            .login-card {
+                padding: 30px 22px;
+            }
+
+            footer {
+                margin-left: 0;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        @media (max-width: 450px) {
+
+            .categories {
+                grid-template-columns: 1fr;
+            }
+
+            .login-card h1 {
+                font-size: 23px;
+            }
+
+            .logo {
+                font-size: 19px;
+            }
+
+            nav a {
+                font-size: 12px;
+            }
+        }
+
     </style>
 </head>
-<body class="bg-[#f7f5ef] min-h-screen flex flex-col justify-between items-center p-4 relative overflow-x-hidden">
 
-    <!-- Elementos decorativos de fundo -->
-    <div class="absolute -top-20 -left-20 w-80 h-80 bg-[#e0d3b8] rounded-full blur-3xl opacity-40 pointer-events-none"></div>
-    <div class="absolute top-1/3 -right-20 w-96 h-96 bg-[#cbd8f5] rounded-full blur-3xl opacity-40 pointer-events-none"></div>
 
-    <div class="w-full flex-1 flex items-center justify-center z-10 my-8">
-        <!-- Card do Formulário de Login -->
-        <div class="bg-white rounded-3xl shadow-xl w-full max-w-md p-8 border border-gray-100">
-            
-            <!-- Logo Icon -->
-            <div class="flex justify-center mb-4">
-                <div class="w-12 h-12 bg-slate-800 rounded-2xl flex items-center justify-center text-amber-300 font-bold text-2xl shadow-md">
-                    +
-                </div>
+<body>
+
+
+    <!-- =========================
+         MENU SUPERIOR
+    ========================== -->
+
+    <header>
+
+        <a href="{% url 'home' %}" class="logo">
+            GAME<span>VERSE</span>
+        </a>
+
+        <nav>
+
+            <!-- Home -->
+            <a href="{% url 'home' %}">
+                <i class="fa-solid fa-house"></i>
+                Home
+            </a>
+
+            <!-- Cadastro -->
+            <a href="{% url 'cadastro' %}">
+                <i class="fa-solid fa-user-plus"></i>
+                Cadastro
+            </a>
+
+            <!-- Login -->
+            <a href="{% url 'login' %}">
+                <i class="fa-solid fa-right-to-bracket"></i>
+                Login
+            </a>
+
+            <!-- Carrinho -->
+            <a href="/carrinho/" class="cart-button">
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                Carrinho
+
+                <span class="cart-count">
+                    0
+                </span>
+
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =========================
+         LAYOUT
+    ========================== -->
+
+    <div class="layout">
+
+
+        <!-- =========================
+             MENU LATERAL
+        ========================== -->
+
+        <aside>
+
+            <div class="sidebar-title">
+                CATEGORIAS
             </div>
 
-            <h2 class="text-3xl font-bold text-center text-gray-900 mb-6">Login</h2>
+            <ul class="categories">
 
-            <!-- Django Messages -->
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-red-600 text-sm font-medium text-center">
-                        {{ message }}
+                <li>
+                    <a href="#">
+                        <i class="fa-solid fa-crosshairs"></i>
+                        Ação
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <i class="fa-solid fa-map"></i>
+                        Aventura
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <i class="fa-solid fa-hat-wizard"></i>
+                        RPG
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <i class="fa-solid fa-chess"></i>
+                        Estratégia
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <i class="fa-solid fa-futbol"></i>
+                        Esportes
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <i class="fa-solid fa-car"></i>
+                        Corrida
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <i class="fa-solid fa-ghost"></i>
+                        Terror
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <i class="fa-solid fa-palette"></i>
+                        Indie
+                    </a>
+                </li>
+
+            </ul>
+
+        </aside>
+
+
+        <!-- =========================
+             CONTEÚDO PRINCIPAL
+        ========================== -->
+
+        <main>
+
+            <div class="login-wrapper">
+
+                <div class="login-card">
+
+
+                    <!-- LOGO -->
+
+                    <div class="login-logo">
+
+                        <i class="fa-solid fa-gamepad"></i>
+
                     </div>
-                {% endfor %}
-            {% endif %}
 
-            <form method="POST" action="{% url 'login' %}" class="space-y-5">
-                {% csrf_token %}
-                
-                <!-- Usuário -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1.5">
-                        Usuário:
-                    </label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
-                            <i data-lucide="user" class="w-5 h-5"></i>
-                        </div>
-                        <input type="text" name="usuario" placeholder="Seu usuário" required
-                            class="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all text-gray-800 placeholder-gray-400">
-                    </div>
-                </div>
 
-                <!-- Senha -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1.5">
-                        Senha:
-                    </label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
-                            <i data-lucide="key-round" class="w-5 h-5"></i>
+                    <!-- TÍTULO -->
+
+                    <h1>
+                        LOGIN <span>GAMEVERSE</span>
+                    </h1>
+
+                    <p class="login-subtitle">
+                        Acesse sua conta e continue sua jornada.
+                    </p>
+
+
+                    <!-- =========================
+                         MENSAGENS DJANGO
+                    ========================== -->
+
+                    {% if messages %}
+
+                        <div class="messages">
+
+                            {% for message in messages %}
+
+                                <div class="message">
+                                    {{ message }}
+                                </div>
+
+                            {% endfor %}
+
                         </div>
-                        <input type="password" id="senha" name="senha" placeholder="Sua senha" required
-                            class="w-full pl-11 pr-11 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all text-gray-800 placeholder-gray-400">
-                        <button type="button" onclick="togglePassword('senha', 'eye-icon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none">
-                            <i data-lucide="eye-off" id="eye-icon" class="w-5 h-5"></i>
+
+                    {% endif %}
+
+
+                    <!-- =========================
+                         FORMULÁRIO
+                    ========================== -->
+
+                    <form method="POST"
+                          action="{% url 'login' %}">
+
+                        {% csrf_token %}
+
+
+                        <!-- USUÁRIO -->
+
+                        <div class="form-group">
+
+                            <label>
+                                <i class="fa-solid fa-user"></i>
+                                Usuário
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <i class="fa-solid fa-user"></i>
+
+                                <input
+                                    type="text"
+                                    name="usuario"
+                                    placeholder="Digite seu usuário"
+                                    required>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- SENHA -->
+
+                        <div class="form-group">
+
+                            <label>
+                                <i class="fa-solid fa-lock"></i>
+                                Senha
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <i class="fa-solid fa-lock"></i>
+
+                                <input
+                                    type="password"
+                                    id="senha"
+                                    name="senha"
+                                    placeholder="Digite sua senha"
+                                    required>
+
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    onclick="togglePassword()">
+
+                                    <i
+                                        class="fa-solid fa-eye"
+                                        id="eye-icon">
+                                    </i>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- BOTÃO ENTRAR -->
+
+                        <button
+                            type="submit"
+                            class="login-button">
+
+                            ENTRAR
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
                         </button>
+
+                    </form>
+
+
+                    <!-- CADASTRO -->
+
+                    <div class="register-link">
+
+                        Ainda não possui uma conta?
+
+                        <a href="{% url 'cadastro' %}">
+                            Criar conta
+                        </a>
+
                     </div>
+
+
                 </div>
 
-                <!-- Botão Entrar -->
-                <button type="submit"
-                    class="w-full mt-2 bg-[#1e4a79] hover:bg-[#16375c] text-white font-medium py-3.5 px-4 rounded-xl shadow-lg shadow-blue-900/20 transition-all flex items-center justify-center gap-2 active:scale-[0.98]">
-                    <span>Entrar</span>
-                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                </button>
-            </form>
+            </div>
 
-            <p class="text-center text-sm text-gray-600 mt-6">
-                Não tem conta? <a href="{% url 'cadastro' %}" class="text-purple-900 font-semibold hover:underline">Cadastre-se</a>
-            </p>
-        </div>
+        </main>
+
     </div>
 
-    <!-- Rodapé -->
-    <footer class="text-center text-xs text-gray-500 py-4 z-10">
-        © 2026 Sua Plataforma - Todos os direitos reservados
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <div class="footer-content">
+
+
+            <!-- SOBRE -->
+
+            <div>
+
+                <div class="footer-logo">
+                    GAME<span>VERSE</span>
+                </div>
+
+                <p class="footer-description">
+
+                    Sua plataforma de jogos digitais.
+
+                    Encontre grandes aventuras,
+                    lançamentos e experiências
+                    incríveis para todos os tipos
+                    de jogadores.
+
+                </p>
+
+
+                <div class="socials">
+
+                    <a href="#">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+
+                    <a href="#">
+                        <i class="fa-brands fa-facebook"></i>
+                    </a>
+
+                    <a href="#">
+                        <i class="fa-brands fa-discord"></i>
+                    </a>
+
+                    <a href="#">
+                        <i class="fa-brands fa-x-twitter"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- LOJA -->
+
+            <div class="footer-column">
+
+                <h3>
+                    LOJA
+                </h3>
+
+                <a href="{% url 'home' %}">
+                    Jogos
+                </a>
+
+                <a href="#">
+                    Promoções
+                </a>
+
+                <a href="#">
+                    Mais vendidos
+                </a>
+
+                <a href="#">
+                    Lançamentos
+                </a>
+
+            </div>
+
+
+            <!-- SUPORTE -->
+
+            <div class="footer-column">
+
+                <h3>
+                    SUPORTE
+                </h3>
+
+                <a href="#">
+                    Central de ajuda
+                </a>
+
+                <a href="#">
+                    Contato
+                </a>
+
+                <a href="#">
+                    FAQ
+                </a>
+
+                <a href="#">
+                    Reembolsos
+                </a>
+
+            </div>
+
+
+            <!-- EMPRESA -->
+
+            <div class="footer-column">
+
+                <h3>
+                    EMPRESA
+                </h3>
+
+                <a href="#">
+                    Sobre nós
+                </a>
+
+                <a href="#">
+                    Termos de uso
+                </a>
+
+                <a href="#">
+                    Privacidade
+                </a>
+
+                <a href="#">
+                    Cookies
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            © 2026 GameVerse.
+            Todos os direitos reservados.
+
+        </div>
+
     </footer>
 
-    <!-- Script de Inicialização de Ícones e Visualização de Senha -->
-    <script>
-        lucide.createIcons();
 
-        function togglePassword(inputId, iconId) {
-            const input = document.getElementById(inputId);
-            const icon = document.getElementById(iconId);
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.setAttribute('data-lucide', 'eye');
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+        function togglePassword() {
+
+            const senha =
+                document.getElementById("senha");
+
+            const icon =
+                document.getElementById("eye-icon");
+
+
+            if (senha.type === "password") {
+
+                senha.type = "text";
+
+                icon.classList.remove(
+                    "fa-eye"
+                );
+
+                icon.classList.add(
+                    "fa-eye-slash"
+                );
+
             } else {
-                input.type = 'password';
-                icon.setAttribute('data-lucide', 'eye-off');
+
+                senha.type = "password";
+
+                icon.classList.remove(
+                    "fa-eye-slash"
+                );
+
+                icon.classList.add(
+                    "fa-eye"
+                );
+
             }
-            lucide.createIcons();
+
         }
+
+
+        /*
+         * Atualiza o número de itens
+         * exibido no carrinho.
+         */
+
+        function atualizarCarrinho() {
+
+            const carrinho =
+                JSON.parse(
+                    localStorage.getItem("carrinho")
+                ) || [];
+
+            const contador =
+                document.querySelector(".cart-count");
+
+            if (contador) {
+
+                contador.textContent =
+                    carrinho.length;
+
+            }
+
+        }
+
+
+        atualizarCarrinho();
+
     </script>
+
 </body>
+
 </html>
+```

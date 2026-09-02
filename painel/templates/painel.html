@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel de Controle</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+
+    body {
+      background-color: #f8f9fa;
+      padding: 40px;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    h2 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 16px;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #f2f2f2;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .custom-table th {
+      background-color: #212529;
+      color: #ffffff;
+      font-weight: 600;
+      text-align: left;
+      padding: 12px 16px;
+    }
+
+    .custom-table td {
+      padding: 12px 16px;
+      vertical-align: middle;
+      color: #212529;
+    }
+
+    .custom-table tbody tr {
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    /* Imagem do produto */
+    .thumb-img {
+      width: 45px;
+      height: 45px;
+      object-fit: contain;
+      background-color: #fff;
+      border-radius: 4px;
+      padding: 2px;
+    }
+
+    /* Avatar do usuário */
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #6c757d;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    /* Botões seguindo a imagem */
+    .btn-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn {
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      font-size: 14px;
+      transition: opacity 0.2s;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    .btn-warning {
+      background-color: #ffc107;
+      color: #000000;
+    }
+
+    .btn-danger {
+      background-color: #dc3545;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Tabela 1: Produtos Cadastrados -->
+    <section>
+      <h2>Produtos Cadastrados</h2>
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th style="width: 10%;">Foto</th>
+            <th style="width: 35%;">Nome</th>
+            <th style="width: 20%;">Estoque</th>
+            <th style="width: 20%;">Preço</th>
+            <th style="width: 15%;">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <img src="https://via.placeholder.com/45" alt="Remédio2" class="thumb-img">
+            </td>
+            <td>Remédio2</td>
+            <td>14</td>
+            <td>R$ 10.00</td>
+            <td>
+              <div class="btn-actions">
+                <button class="btn btn-warning">Alterar</button>
+                <button class="btn btn-danger">Excluir</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Tabela 2: Usuários Cadastrados -->
+    <section>
+      <h2>Usuários Cadastrados</h2>
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th style="width: 10%;">Perfil</th>
+            <th style="width: 30%;">Nome</th>
+            <th style="width: 30%;">E-mail</th>
+            <th style="width: 15%;">Perfil de Acesso</th>
+            <th style="width: 15%;">Ações</th>
+          <h2>Usuários Cadastrados</h2>
+<table>
+    <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Perfil de Acesso</th>
+        <th>Ações</th>
+    </tr>
+    {% for usuario in usuarios %}
+    <tr>
+        <td>{{ usuario.first_name }} {{ usuario.last_name }}</td>
+        <td>{{ usuario.email }}</td>
+        <td>
+            {% if usuario.is_superuser %}
+                Administrador
+            {% else %}
+                Cliente
+            {% endif %}
+        </td>
+        <td>
+            <a href="#" class="btn btn-warning">Alterar</a>
+            <a href="#" class="btn btn-danger">Excluir</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="4">Nenhum usuário cadastrado.</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+    </section>
+
+  </div>
+
+</body>
+</html>

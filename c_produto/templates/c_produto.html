@@ -1,83 +1,2002 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro e Gestão de Produtos</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>Gestão de Produtos - GameVerse</title>
+
+
+    <!-- ==========================================
+         FONTES
+    =========================================== -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+
+    <!-- ==========================================
+         FONT AWESOME
+    =========================================== -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <style>
+
+        /* ==========================================
+           RESET
+        =========================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            font-family: 'Poppins', sans-serif;
+
+            background:
+
+                radial-gradient(
+                    circle at 80% 10%,
+                    rgba(0, 234, 255, 0.08),
+                    transparent 25%
+                ),
+
+                radial-gradient(
+                    circle at 20% 40%,
+                    rgba(123, 47, 255, 0.08),
+                    transparent 30%
+                ),
+
+                #050713;
+
+            color: #ffffff;
+
+            min-height: 100vh;
+        }
+
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+
+        /* ==========================================
+           HEADER
+        =========================================== */
+
+        header {
+
+            width: 100%;
+
+            min-height: 75px;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 5%;
+
+            background:
+                rgba(5, 7, 19, 0.90);
+
+            backdrop-filter:
+                blur(18px);
+
+            border-bottom:
+                1px solid rgba(0, 234, 255, 0.15);
+
+            box-shadow:
+                0 0 25px rgba(0, 234, 255, 0.05);
+        }
+
+
+        /* LOGO */
+
+        .logo {
+
+            font-family: 'Orbitron', sans-serif;
+
+            font-size: 23px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            color: #ffffff;
+        }
+
+
+        .logo span {
+
+            color: #00eaff;
+
+            text-shadow:
+
+                0 0 10px #00eaff,
+
+                0 0 25px
+                rgba(0, 234, 255, 0.5);
+        }
+
+
+        /* ==========================================
+           MENU SUPERIOR
+        =========================================== */
+
+        nav {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+        }
+
+
+        nav a {
+
+            padding: 10px 15px;
+
+            border-radius: 8px;
+
+            color: #aeb8d0;
+
+            font-size: 14px;
+
+            transition: 0.3s;
+        }
+
+
+        nav a:hover {
+
+            color: #00eaff;
+
+            background:
+                rgba(0, 234, 255, 0.07);
+
+            box-shadow:
+                0 0 15px
+                rgba(0, 234, 255, 0.08);
+        }
+
+
+        /* ==========================================
+           CARRINHO
+        =========================================== */
+
+        .cart-button {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 10px 18px;
+
+            border:
+                1px solid #00eaff;
+
+            border-radius: 8px;
+
+            color: #00eaff;
+
+            background:
+                rgba(0, 234, 255, 0.06);
+
+            box-shadow:
+                0 0 12px
+                rgba(0, 234, 255, 0.15);
+        }
+
+
+        .cart-button:hover {
+
+            color: #050713;
+
+            background: #00eaff;
+
+            box-shadow:
+
+                0 0 15px #00eaff,
+
+                0 0 35px
+                rgba(0, 234, 255, 0.4);
+        }
+
+
+        .cart-count {
+
+            min-width: 20px;
+
+            height: 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #ff2bd6;
+
+            color: white;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+            box-shadow:
+                0 0 10px #ff2bd6;
+        }
+
+
+        /* ==========================================
+           LAYOUT
+        =========================================== */
+
+        .layout {
+
+            display: grid;
+
+            grid-template-columns:
+                230px 1fr;
+
+            min-height:
+                calc(100vh - 75px);
+        }
+
+
+        /* ==========================================
+           SIDEBAR
+        =========================================== */
+
+        aside {
+
+            padding: 30px 20px;
+
+            border-right:
+                1px solid
+                rgba(0, 234, 255, 0.12);
+
+            background:
+
+                linear-gradient(
+                    180deg,
+                    rgba(9, 13, 31, 0.95),
+                    rgba(5, 7, 19, 0.85)
+                );
+        }
+
+
+        .sidebar-title {
+
+            font-family: 'Orbitron', sans-serif;
+
+            font-size: 13px;
+
+            letter-spacing: 2px;
+
+            color: #00eaff;
+
+            margin-bottom: 20px;
+        }
+
+
+        .categories {
+
+            list-style: none;
+        }
+
+
+        .categories li {
+
+            margin-bottom: 7px;
+        }
+
+
+        .categories a {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+
+            padding: 12px 14px;
+
+            color: #8f9ab5;
+
+            border-radius: 8px;
+
+            transition: 0.3s;
+        }
+
+
+        .categories a:hover,
+        .categories .active {
+
+            color: #ffffff;
+
+            background:
+
+                linear-gradient(
+                    90deg,
+                    rgba(0, 234, 255, 0.12),
+                    rgba(123, 47, 255, 0.08)
+                );
+
+            border-left:
+                2px solid #00eaff;
+        }
+
+
+        .categories i {
+
+            width: 18px;
+
+            color: #69748e;
+        }
+
+
+        .categories a:hover i,
+        .categories .active i {
+
+            color: #00eaff;
+        }
+
+
+        /* ==========================================
+           CONTEÚDO PRINCIPAL
+        =========================================== */
+
+        main {
+
+            padding: 35px;
+
+            width: 100%;
+
+            overflow: hidden;
+        }
+
+
+        /* ==========================================
+           TÍTULO
+        =========================================== */
+
+        .page-title {
+
+            margin-bottom: 30px;
+        }
+
+
+        .page-title small {
+
+            color: #00eaff;
+
+            font-family: 'Orbitron', sans-serif;
+
+            font-size: 12px;
+
+            letter-spacing: 3px;
+        }
+
+
+        .page-title h1 {
+
+            font-family: 'Orbitron', sans-serif;
+
+            font-size: 30px;
+
+            margin-top: 8px;
+        }
+
+
+        .page-title h1 span {
+
+            color: #00eaff;
+
+            text-shadow:
+                0 0 15px #00eaff;
+        }
+
+
+        /* ==========================================
+           CARD DO FORMULÁRIO
+        =========================================== */
+
+        .form-card {
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    rgba(12, 17, 38, 0.96),
+                    rgba(7, 10, 25, 0.96)
+                );
+
+            border:
+                1px solid
+                rgba(0, 234, 255, 0.14);
+
+            border-radius: 15px;
+
+            padding: 28px;
+
+            margin-bottom: 35px;
+
+            box-shadow:
+                0 0 30px
+                rgba(0, 0, 0, 0.25);
+        }
+
+
+        .section-title {
+
+            font-family: 'Orbitron', sans-serif;
+
+            font-size: 18px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .section-title::before {
+
+            content: "//";
+
+            color: #00eaff;
+
+            margin-right: 8px;
+        }
+
+
+        /* ==========================================
+           FORMULÁRIO
+        =========================================== */
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 20px;
+        }
+
+
+        .form-group {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+        }
+
+
+        .form-group.full {
+
+            grid-column:
+                1 / -1;
+        }
+
+
+        .form-group label {
+
+            color: #9da8bf;
+
+            font-size: 13px;
+        }
+
+
+        .form-group input {
+
+            width: 100%;
+
+            padding: 13px 15px;
+
+            color: #ffffff;
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.08);
+
+            border-radius: 8px;
+
+            outline: none;
+
+            transition: 0.3s;
+        }
+
+
+        .form-group input:focus {
+
+            border-color: #00eaff;
+
+            box-shadow:
+                0 0 15px
+                rgba(0,234,255,0.12);
+
+            background:
+                rgba(0,234,255,0.03);
+        }
+
+
+        .form-group input::placeholder {
+
+            color: #566078;
+        }
+
+
+        /* ==========================================
+           BOTÃO SALVAR
+        =========================================== */
+
+        .save-button {
+
+            margin-top: 25px;
+
+            padding: 13px 25px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background:
+
+                linear-gradient(
+                    90deg,
+                    #00eaff,
+                    #00ffc8
+                );
+
+            color: #050713;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+            box-shadow:
+                0 0 15px
+                rgba(0,234,255,0.25);
+        }
+
+
+        .save-button:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+
+                0 0 20px #00eaff,
+
+                0 0 40px
+                rgba(0,234,255,0.25);
+        }
+
+
+        /* ==========================================
+           LISTA DE PRODUTOS
+        =========================================== */
+
+        .products-card {
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    rgba(12, 17, 38, 0.96),
+                    rgba(7, 10, 25, 0.96)
+                );
+
+            border:
+                1px solid
+                rgba(0,234,255,0.14);
+
+            border-radius: 15px;
+
+            padding: 25px;
+
+            overflow: hidden;
+        }
+
+
+        .products-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 20px;
+        }
+
+
+        .products-count {
+
+            color: #6e7a94;
+
+            font-size: 13px;
+        }
+
+
+        /* ==========================================
+           TABELA
+        =========================================== */
+
+        .table-wrapper {
+
+            width: 100%;
+
+            overflow-x: auto;
+        }
+
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 700px;
+        }
+
+
+        thead {
+
+            background:
+                rgba(0,234,255,0.05);
+        }
+
+
+        th {
+
+            padding: 15px;
+
+            text-align: left;
+
+            color: #00eaff;
+
+            font-family: 'Orbitron', sans-serif;
+
+            font-size: 11px;
+
+            letter-spacing: 1px;
+
+            border-bottom:
+                1px solid
+                rgba(0,234,255,0.15);
+        }
+
+
+        td {
+
+            padding: 15px;
+
+            color: #a8b2c8;
+
+            font-size: 13px;
+
+            border-bottom:
+                1px solid
+                rgba(255,255,255,0.05);
+        }
+
+
+        tbody tr {
+
+            transition: 0.3s;
+        }
+
+
+        tbody tr:hover {
+
+            background:
+                rgba(0,234,255,0.035);
+        }
+
+
+        /* ==========================================
+           IMAGEM DO PRODUTO
+        =========================================== */
+
+        .product-image {
+
+            width: 55px;
+
+            height: 55px;
+
+            object-fit: cover;
+
+            border-radius: 8px;
+
+            border:
+                1px solid
+                rgba(0,234,255,0.2);
+
+            box-shadow:
+                0 0 10px
+                rgba(0,234,255,0.05);
+        }
+
+
+        .no-image {
+
+            width: 55px;
+
+            height: 55px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 8px;
+
+            background:
+                rgba(255,255,255,0.03);
+
+            color: #58647d;
+
+            font-size: 10px;
+
+            text-align: center;
+        }
+
+
+        /* ==========================================
+           NOME DO PRODUTO
+        =========================================== */
+
+        .product-name {
+
+            color: #ffffff;
+
+            font-weight: 600;
+        }
+
+
+        /* ==========================================
+           PREÇO
+        =========================================== */
+
+        .product-price {
+
+            color: #00eaff;
+
+            font-family: 'Orbitron', sans-serif;
+
+            font-weight: 600;
+        }
+
+
+        /* ==========================================
+           ESTOQUE
+        =========================================== */
+
+        .stock {
+
+            color: #00ffc8;
+
+            font-weight: 600;
+        }
+
+
+        .stock.low {
+
+            color: #ffb52e;
+        }
+
+
+        .stock.empty {
+
+            color: #ff4f70;
+        }
+
+
+        /* ==========================================
+           BOTÕES DE AÇÃO
+        =========================================== */
+
+        .actions {
+
+            display: flex;
+
+            gap: 8px;
+        }
+
+
+        .action-button {
+
+            padding: 7px 10px;
+
+            border-radius: 6px;
+
+            font-size: 11px;
+
+            transition: 0.3s;
+        }
+
+
+        .edit-button {
+
+            border:
+                1px solid
+                rgba(0,234,255,0.3);
+
+            color: #00eaff;
+
+            background:
+                rgba(0,234,255,0.05);
+        }
+
+
+        .edit-button:hover {
+
+            background: #00eaff;
+
+            color: #050713;
+
+            box-shadow:
+                0 0 12px
+                rgba(0,234,255,0.4);
+        }
+
+
+        .delete-button {
+
+            border:
+                1px solid
+                rgba(255,65,100,0.3);
+
+            color: #ff5577;
+
+            background:
+                rgba(255,65,100,0.05);
+        }
+
+
+        .delete-button:hover {
+
+            background: #ff4268;
+
+            color: white;
+
+            box-shadow:
+                0 0 12px
+                rgba(255,66,104,0.4);
+        }
+
+
+        /* ==========================================
+           SEM PRODUTOS
+        =========================================== */
+
+        .empty-products {
+
+            text-align: center;
+
+            padding: 60px 20px;
+
+            color: #66718a;
+        }
+
+
+        .empty-products i {
+
+            display: block;
+
+            font-size: 50px;
+
+            color: #00eaff;
+
+            margin-bottom: 15px;
+
+            opacity: 0.5;
+        }
+
+
+        .empty-products strong {
+
+            display: block;
+
+            color: #ffffff;
+
+            margin-bottom: 5px;
+        }
+
+
+        /* ==========================================
+           FOOTER
+        =========================================== */
+
+        footer {
+
+            margin-top: 60px;
+
+            padding:
+                45px 5% 25px;
+
+            border-top:
+                1px solid
+                rgba(0,234,255,0.12);
+
+            background:
+
+                linear-gradient(
+                    180deg,
+                    #070a17,
+                    #03040a
+                );
+        }
+
+
+        .footer-content {
+
+            display: grid;
+
+            grid-template-columns:
+                2fr 1fr 1fr 1fr;
+
+            gap: 40px;
+        }
+
+
+        .footer-logo {
+
+            font-family: 'Orbitron', sans-serif;
+
+            font-size: 20px;
+
+            font-weight: 800;
+
+            margin-bottom: 15px;
+        }
+
+
+        .footer-logo span {
+
+            color: #00eaff;
+        }
+
+
+        .footer-description {
+
+            max-width: 350px;
+
+            color: #737e98;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+        }
+
+
+        .footer-column h3 {
+
+            font-family: 'Orbitron', sans-serif;
+
+            font-size: 12px;
+
+            color: #00eaff;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .footer-column a {
+
+            display: block;
+
+            color: #727d97;
+
+            font-size: 13px;
+
+            margin-bottom: 9px;
+
+            transition: 0.3s;
+        }
+
+
+        .footer-column a:hover {
+
+            color: #ffffff;
+
+            padding-left: 4px;
+        }
+
+
+        .socials {
+
+            display: flex;
+
+            gap: 10px;
+
+            margin-top: 20px;
+        }
+
+
+        .socials a {
+
+            width: 35px;
+
+            height: 35px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border:
+                1px solid
+                rgba(0,234,255,0.2);
+
+            border-radius: 7px;
+
+            color: #00eaff;
+
+            transition: 0.3s;
+        }
+
+
+        .socials a:hover {
+
+            background: #00eaff;
+
+            color: #050713;
+
+            box-shadow:
+                0 0 15px
+                rgba(0,234,255,0.5);
+        }
+
+
+        .copyright {
+
+            margin-top: 35px;
+
+            padding-top: 20px;
+
+            border-top:
+                1px solid
+                rgba(255,255,255,0.05);
+
+            text-align: center;
+
+            color: #4e5870;
+
+            font-size: 11px;
+        }
+
+
+        /* ==========================================
+           RESPONSIVIDADE
+        =========================================== */
+
+        @media (max-width: 900px) {
+
+            .form-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+
+                grid-column: auto;
+            }
+
+            .footer-content {
+
+                grid-template-columns:
+                    1fr 1fr;
+            }
+        }
+
+
+        @media (max-width: 750px) {
+
+            header {
+
+                height: auto;
+
+                padding:
+                    15px 20px;
+
+                flex-wrap: wrap;
+
+                gap: 10px;
+            }
+
+
+            nav {
+
+                width: 100%;
+
+                justify-content: center;
+
+                flex-wrap: wrap;
+            }
+
+
+            .layout {
+
+                display: block;
+            }
+
+
+            aside {
+
+                border-right: none;
+
+                border-bottom:
+                    1px solid
+                    rgba(0,234,255,0.12);
+            }
+
+
+            .categories {
+
+                display: grid;
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            main {
+
+                padding: 20px;
+            }
+        }
+
+
+        @media (max-width: 500px) {
+
+            .categories {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .footer-content {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .page-title h1 {
+
+                font-size: 25px;
+            }
+        }
+
+    </style>
+
 </head>
-<body class="container mt-4">
 
-    <h1 class="mb-4">Gestão de Produtos</h1>
 
-    <!-- Formulário -->
-    <div class="card mb-4">
-        <div class="card-header bg-primary text-white">Cadastrar Novo Produto</div>
-        <div class="card-body">
-            <form method="POST">
-                {% csrf_token %}
-                <div class="mb-3">
-                    <label class="form-label">Nome do Produto</label>
-                    <input type="text" name="nome" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Estoque</label>
-                    <input type="number" name="estoque" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Preço (R$)</label>
-                    <input type="text" name="preco" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">URL da Foto</label>
-                    <input type="url" name="foto_url" class="form-control">
-                </div>
-                <button type="submit" class="btn btn-success">Salvar</button>
-            </form>
+<body>
+
+
+<!-- ==========================================
+     MENU SUPERIOR
+=========================================== -->
+
+<header>
+
+
+    <a href="{% url 'home' %}" class="logo">
+
+        GAME<span>VERSE</span>
+
+    </a>
+
+
+    <nav>
+
+
+        <a href="{% url 'app' %}">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+
+
+        <a href="#">
+
+            Cadastro
+
+        </a>
+
+
+        <a href="#">
+
+            Login
+
+        </a>
+
+
+        <a href="#" class="cart-button">
+
+            <i class="fa-solid fa-cart-shopping"></i>
+
+            Carrinho
+
+            <span
+                class="cart-count"
+                id="contador-carrinho">
+
+                0
+
+            </span>
+
+        </a>
+
+
+    </nav>
+
+</header>
+
+
+<!-- ==========================================
+     LAYOUT
+=========================================== -->
+
+<div class="layout">
+
+
+    <!-- ======================================
+         SIDEBAR
+    ======================================= -->
+
+    <aside>
+
+
+        <div class="sidebar-title">
+
+            CATEGORIAS
+
         </div>
-    </div>
 
-    <!-- Lista -->
-    <h2>Produtos Cadastrados</h2>
-    <table class="table table-striped">
-        <thead class="table-dark">
-            <tr>
-                <th>Foto</th>
-                <th>Nome</th>
-                <th>Estoque</th>
-                <th>Preço</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for produto in produtos %}
-            <tr>
-                <td>
-                    {% if produto.foto_url %}
-                        <img src="{{ produto.foto_url }}" width="50">
-                    {% else %}
-                        <span>Sem foto</span>
-                    {% endif %}
-                </td>
-                <td>{{ produto.nome }}</td>
-                <td>{{ produto.estoque }}</td>
-                <td>R$ {{ produto.preco }}</td>
-                <td>
-                    <!-- Botões de ação -->
-                    <a href="{% url 'editar_produto' produto.id %}" class="btn btn-warning btn-sm">Alterar</a>
-                    <a href="{% url 'excluir_produto' produto.id %}" class="btn btn-danger btn-sm">Excluir</a>
-                </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="5" class="text-center">Nenhum produto cadastrado ainda.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <ul class="categories">
+
+
+            <li>
+
+                <a href="#" class="active">
+
+                    <i class="fa-solid fa-crosshairs"></i>
+
+                    Ação
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="#">
+
+                    <i class="fa-solid fa-map"></i>
+
+                    Aventura
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="#">
+
+                    <i class="fa-solid fa-hat-wizard"></i>
+
+                    RPG
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="#">
+
+                    <i class="fa-solid fa-chess"></i>
+
+                    Estratégia
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="#">
+
+                    <i class="fa-solid fa-futbol"></i>
+
+                    Esportes
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="#">
+
+                    <i class="fa-solid fa-car"></i>
+
+                    Corrida
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="#">
+
+                    <i class="fa-solid fa-ghost"></i>
+
+                    Terror
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="#">
+
+                    <i class="fa-solid fa-palette"></i>
+
+                    Indie
+
+                </a>
+
+            </li>
+
+
+        </ul>
+
+    </aside>
+
+
+    <!-- ======================================
+         CONTEÚDO
+    ======================================= -->
+
+    <main>
+
+
+        <!-- ==================================
+             TÍTULO
+        =================================== -->
+
+        <div class="page-title">
+
+            <small>
+                GAMEVERSE ADMIN
+            </small>
+
+            <h1>
+
+                GESTÃO DE
+                <span>PRODUTOS</span>
+
+            </h1>
+
+        </div>
+
+
+        <!-- ==================================
+             FORMULÁRIO
+        =================================== -->
+
+        <section class="form-card">
+
+
+            <h2 class="section-title">
+
+                CADASTRAR NOVO PRODUTO
+
+            </h2>
+
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <div class="form-grid">
+
+
+                    <!-- NOME -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Nome do Produto
+                        </label>
+
+                        <input
+                            type="text"
+                            name="nome"
+                            placeholder="Digite o nome do jogo"
+                            required>
+
+                    </div>
+
+
+                    <!-- ESTOQUE -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Estoque
+                        </label>
+
+                        <input
+                            type="number"
+                            name="estoque"
+                            placeholder="Quantidade disponível"
+                            min="0"
+                            required>
+
+                    </div>
+
+
+                    <!-- PREÇO -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Preço (R$)
+                        </label>
+
+                        <input
+                            type="text"
+                            name="preco"
+                            placeholder="Ex.: 99,90"
+                            required>
+
+                    </div>
+
+
+                    <!-- FOTO -->
+
+                    <div class="form-group">
+
+                        <label>
+                            URL da Foto
+                        </label>
+
+                        <input
+                            type="url"
+                            name="foto_url"
+                            placeholder="https://..."
+                            >
+
+                    </div>
+
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="save-button">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    SALVAR PRODUTO
+
+                </button>
+
+
+            </form>
+
+        </section>
+
+
+        <!-- ==================================
+             PRODUTOS CADASTRADOS
+        =================================== -->
+
+        <section class="products-card">
+
+
+            <div class="products-header">
+
+
+                <h2 class="section-title">
+
+                    PRODUTOS CADASTRADOS
+
+                </h2>
+
+
+                <span class="products-count">
+
+                    {{ produtos|length }} produtos
+
+                </span>
+
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+
+                <table>
+
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                FOTO
+                            </th>
+
+                            <th>
+                                NOME
+                            </th>
+
+                            <th>
+                                ESTOQUE
+                            </th>
+
+                            <th>
+                                PREÇO
+                            </th>
+
+                            <th>
+                                AÇÕES
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                        {% for produto in produtos %}
+
+                        <tr>
+
+
+                            <!-- FOTO -->
+
+                            <td>
+
+                                {% if produto.foto_url %}
+
+                                    <img
+                                        src="{{ produto.foto_url }}"
+                                        alt="{{ produto.nome }}"
+                                        class="product-image">
+
+                                {% else %}
+
+                                    <div class="no-image">
+
+                                        <i class="fa-solid fa-image"></i>
+
+                                    </div>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- NOME -->
+
+                            <td>
+
+                                <span class="product-name">
+
+                                    {{ produto.nome }}
+
+                                </span>
+
+                            </td>
+
+
+                            <!-- ESTOQUE -->
+
+                            <td>
+
+                                {% if produto.estoque == 0 %}
+
+                                    <span class="stock empty">
+
+                                        Sem estoque
+
+                                    </span>
+
+                                {% elif produto.estoque < 5 %}
+
+                                    <span class="stock low">
+
+                                        {{ produto.estoque }}
+                                        unidades
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="stock">
+
+                                        {{ produto.estoque }}
+                                        unidades
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- PREÇO -->
+
+                            <td>
+
+                                <span class="product-price">
+
+                                    R$ {{ produto.preco }}
+
+                                </span>
+
+                            </td>
+
+
+                            <!-- AÇÕES -->
+
+                            <td>
+
+                                <div class="actions">
+
+
+                                    <a
+                                        href="{% url 'editar_produto' produto.id %}"
+                                        class="action-button edit-button">
+
+                                        <i class="fa-solid fa-pen"></i>
+
+                                        Alterar
+
+                                    </a>
+
+
+                                    <a
+                                        href="{% url 'excluir_produto' produto.id %}"
+                                        class="action-button delete-button">
+
+                                        <i class="fa-solid fa-trash"></i>
+
+                                        Excluir
+
+                                    </a>
+
+
+                                </div>
+
+                            </td>
+
+
+                        </tr>
+
+
+                        {% empty %}
+
+
+                        <tr>
+
+                            <td colspan="5">
+
+
+                                <div class="empty-products">
+
+                                    <i class="fa-solid fa-box-open"></i>
+
+
+                                    <strong>
+
+                                        Nenhum produto cadastrado
+
+                                    </strong>
+
+
+                                    <span>
+
+                                        Cadastre seu primeiro jogo
+                                        usando o formulário acima.
+
+                                    </span>
+
+                                </div>
+
+
+                            </td>
+
+                        </tr>
+
+
+                        {% endfor %}
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================
+             FOOTER
+        =================================== -->
+
+        <footer>
+
+
+            <div class="footer-content">
+
+
+                <!-- SOBRE -->
+
+                <div>
+
+
+                    <div class="footer-logo">
+
+                        GAME<span>VERSE</span>
+
+                    </div>
+
+
+                    <p class="footer-description">
+
+                        Sua plataforma de jogos digitais.
+                        Encontre grandes aventuras,
+                        lançamentos e experiências
+                        incríveis para todos os jogadores.
+
+                    </p>
+
+
+                    <div class="socials">
+
+
+                        <a href="#">
+
+                            <i class="fa-brands fa-instagram"></i>
+
+                        </a>
+
+
+                        <a href="#">
+
+                            <i class="fa-brands fa-facebook"></i>
+
+                        </a>
+
+
+                        <a href="#">
+
+                            <i class="fa-brands fa-discord"></i>
+
+                        </a>
+
+
+                        <a href="#">
+
+                            <i class="fa-brands fa-x-twitter"></i>
+
+                        </a>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- LOJA -->
+
+                <div class="footer-column">
+
+                    <h3>
+                        LOJA
+                    </h3>
+
+                    <a href="#">
+                        Jogos
+                    </a>
+
+                    <a href="#">
+                        Promoções
+                    </a>
+
+                    <a href="#">
+                        Mais vendidos
+                    </a>
+
+                    <a href="#">
+                        Lançamentos
+                    </a>
+
+                </div>
+
+
+                <!-- SUPORTE -->
+
+                <div class="footer-column">
+
+                    <h3>
+                        SUPORTE
+                    </h3>
+
+                    <a href="#">
+                        Central de ajuda
+                    </a>
+
+                    <a href="#">
+                        Contato
+                    </a>
+
+                    <a href="#">
+                        FAQ
+                    </a>
+
+                    <a href="#">
+                        Reembolsos
+                    </a>
+
+                </div>
+
+
+                <!-- EMPRESA -->
+
+                <div class="footer-column">
+
+                    <h3>
+                        EMPRESA
+                    </h3>
+
+                    <a href="#">
+                        Sobre nós
+                    </a>
+
+                    <a href="#">
+                        Termos de uso
+                    </a>
+
+                    <a href="#">
+                        Privacidade
+                    </a>
+
+                    <a href="#">
+                        Cookies
+                    </a>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="copyright">
+
+                © 2026 GameVerse.
+                Todos os direitos reservados.
+
+            </div>
+
+
+        </footer>
+
+
+    </main>
+
+</div>
+
+
+<!-- ==========================================
+     JAVASCRIPT
+=========================================== -->
+
+<script>
+
+    /*
+    ============================================
+    CONTADOR DO CARRINHO
+    ============================================
+    */
+
+    const carrinho =
+        JSON.parse(
+            localStorage.getItem('carrinho')
+        ) || [];
+
+
+    const contador =
+        document.getElementById(
+            'contador-carrinho'
+        );
+
+
+    contador.innerText =
+        carrinho.length;
+
+
+</script>
+
+
 </body>
+
 </html>
+
+
