@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'painel',
     'c_produto',
     'carrinho',
-    
+    'sistema', #Adicionado para permitir a execução do comando de criação de usuários de teste no ambiente de desenvolvimento.
 ]
 
 MIDDLEWARE = [
@@ -61,11 +61,10 @@ ROOT_URLCONF = 'sistema.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates"],  # se você usa uma pasta global
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -73,7 +72,6 @@ TEMPLATES = [
         },
     },
 ]
-
 
 WSGI_APPLICATION = 'sistema.wsgi.application'
 
@@ -129,8 +127,25 @@ STATIC_URL = 'static/'
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
-MAILERS = {
-    'default': {
-        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
-    },
-}
+# MAILERS = {
+#     'default': {
+#         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
+#     },
+# }
+
+# Configuração de E-mail (Gmail SMTP)
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    EMAIL_HOST_USER = ''        # Seu e-mail completo do Gmail
+    EMAIL_HOST_PASSWORD = ''
+    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# Login Redirect URL
+LOGIN_REDIRECT_URL = 'painel_redirect'
+# Login URL para redirecionamento de usuários não autenticados
+LOGIN_URL = 'login'

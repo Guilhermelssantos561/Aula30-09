@@ -20,6 +20,7 @@ from django.contrib.auth import views as auth_views
 
 from cadastro import views as cadastro_views
 from login.views import login_view
+from login.views import painel_redirect
 from carrinho import views as carrinho_views
 from c_produto import views as c_produto_views
 from . import views
@@ -44,4 +45,16 @@ urlpatterns = [
 
     path('app/', views.app, name='app'),
     path('painel/', painel_principal, name='painel'),
+    path('painel/', painel_redirect, name='painel_redirect'),
+      # Rota principal após o login
+    path('painel/', login_view.painel_redirect, name='painel_redirect'),
+    
+    # Rotas específicas de cada nível
+    path('painel/administrador/', painel_views.view_administrador, name='view_administrador'),
+    path('painel/diretoria/', painel_views.view_diretoria, name='view_diretoria'),
+    path('painel/gerencia-geral/', painel_views.view_gerencia_geral, name='view_gerencia_geral'),
+    path('painel/gerencia/', painel_views.view_gerencia, name='view_gerencia'),
+    path('painel/supervisao/', painel_views.view_supervisao, name='view_supervisao'),
+    path('painel/atendente/', painel_views.view_atendente, name='view_atendente'),
+    path('painel/caixa/', painel_views.view_caixa, name='view_caixa'),
 ]

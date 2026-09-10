@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 # Limita a view aos métodos HTTP usados pelo formulário de login.
@@ -107,3 +108,28 @@ def logout_view(request):
     """Encerra a sessão atual e volta para a página inicial."""
     logout(request)
     return redirect('home')
+
+# View de roteamento do painel, redirecionando para a view correspondente ao grupo do usuário.
+
+@login_required
+def painel_redirect(request):
+    user = request.user
+    
+    # Valida do cargo mais alto para o mais baixo
+    if verificar_grupo(user, 'administradores'):
+            return redirect('view_administrador')
+    if verificar_grupo(user, 'diretoria'):
+        return redirect('view_diretoria')
+    elif verificar_grupo(user, 'gerencia_geral'):
+        return redirect('view_gerencia_geral')
+    elif verificar_grupo(user, 'gerencia'):
+        return redirect('view_gerencia')
+    elif verificar_grupo(user, 'supervisao'):
+        return redirect('view_supervisao')
+    elif verificar_grupo(user, 'atendente'):
+        return redirect('view_atendente')
+    elif verificar_grupo(user, 'caixa'):
+        return redirect('view_caixa')
+    
+    # Se não tiver grupo ou for superusuário sem grupo definido
+    raise PermissionDenied
