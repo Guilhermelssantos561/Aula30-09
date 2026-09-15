@@ -1,9 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
 from login.utils import verificar_grupo
 
 from django.contrib.auth.models import User as Usuario
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
 
 
 @login_required(login_url='login')
@@ -39,11 +43,28 @@ def view_gerencia(request):
         raise PermissionDenied
     return render(request, 'painel/gerencia.html')
 
+
+
 @login_required
 def view_supervisao(request):
+
     if not verificar_grupo(request.user, 'supervisao'):
         raise PermissionDenied
-    return render(request, 'painel/supervisao.html')
+
+    total_usuarios = User.objects.count()
+
+    usuarios = User.objects.all()
+
+    contexto = {
+        'total_usuarios': total_usuarios,
+        'usuarios': usuarios
+    }
+
+    return render(
+        request,
+        'painel/supervisao.html',
+        contexto
+    )
 
 @login_required
 def view_atendente(request):

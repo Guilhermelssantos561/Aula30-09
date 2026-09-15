@@ -16,37 +16,27 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.contrib.auth import views as auth_views
+from cadastro import views as cadastro_view
+from login import views as login_view
+from app import views as app_view
+from painel import views as painel_views
+from carrinho import views as carrinho_view
 
-from cadastro import views as cadastro_views
-from login.views import login_view
-from login.views import painel_redirect
-from carrinho import views as carrinho_views
-from c_produto import views as c_produto_views
-from . import views
-from painel.views import painel_principal
+
 
 urlpatterns = [
-    path('c_produto/', c_produto_views.c_produto, name='c_produto'),
-    path('editar/<int:id>/', c_produto_views.editar_produto, name='editar_produto'),
-    path('excluir/<int:id>/', c_produto_views.excluir_produto, name='excluir_produto'),
-
     path('admin/', admin.site.urls),
+    path('app/', app_view.home, name='home'),
+    path('cadastro/', cadastro_view.cadastro, name='cadastro'),
+    path('ativar/<uidb64>/<token>/', cadastro_view.ativar_conta, name='ativar_conta'),
+    path('login/', login_view.login_view, name='login'),
+    path('login/mfa/', login_view.mfa_view, name='mfa'),
+    path('painel/', painel_views.painel_principal, name='painel'),
+    path('logout/', login_view.logout_view, name='logout'),
+    path('carrinho/', carrinho_view.carrinho, name='carrinho'),
 
-    path('cadastro/', cadastro_views.cadastro, name='cadastro'),
-    path('ativar-conta/<uidb64>/<token>/',cadastro_views.ativar_conta,name='ativar_conta'),
 
-    path('login/', login_view, name='login'),
-
-    path('logout/',auth_views.LogoutView.as_view(next_page='login'),name='logout'),
-
-    path('carrinho/', carrinho_views.carrinho, name='carrinho'),
-    path('carrinho/remover/<int:item_id>/',carrinho_views.remover_item,name='remover_item'),
-
-    path('app/', views.app, name='app'),
-    path('painel/', painel_principal, name='painel'),
-    path('painel/', painel_redirect, name='painel_redirect'),
-      # Rota principal após o login
+    # Rota principal após o login
     path('painel/', login_view.painel_redirect, name='painel_redirect'),
     
     # Rotas específicas de cada nível

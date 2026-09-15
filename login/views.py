@@ -62,24 +62,21 @@ def login_view(request):
 
 
 def mfa_view(request):
-    """Valida o código MFA e efetiva o login após a senha ser aceita."""
     user_id = request.session.get('pre_2fa_user_id')
-    
-    # Sem o ID temporário, a primeira etapa do login não foi concluída.
+
     if not user_id:
         return redirect('login')
 
     if request.method == 'POST':
-        # Texto preserva zeros à esquerda do código.
+
         code_input = request.POST.get('code')
-        
+
         try:
             user = User.objects.get(id=user_id)
+
         except User.DoesNotExist:
-            # A sessão pode apontar para um usuário que foi removido.
             return redirect('login')
 
-        # Considera códigos não usados e prioriza o mais recente.
         two_factor_obj = TwoFactorCode.objects.filter(
             user=user,
             code=code_input,
@@ -87,21 +84,19 @@ def mfa_view(request):
         ).order_by('-created_at').first()
 
         if two_factor_obj and two_factor_obj.is_valid():
-            # Marca o código antes de concluir para impedir reutilização.
+
             two_factor_obj.mark_as_used()
 
-            # Cria a sessão autenticada do usuário.
             login(request, user)
 
-            # Remove o marcador usado somente durante o fluxo MFA.
             del request.session['pre_2fa_user_id']
 
-            return redirect('painel')
+            return render(request, 'painel/supervisao.html')
+
         else:
             messages.error(request, 'Código inválido ou expirado.')
 
-    # Exibe o formulário tanto no primeiro acesso quanto após um erro.
-    return render(request, 'login/mfa.html')
+    return render(request, 'mfa.html')
 
 
 def logout_view(request):
