@@ -8,6 +8,9 @@ from django.contrib.auth.models import User as Usuario
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from django.db.models import Q
+from django.shortcuts import redirect, get_object_or_404
+
 
 
 @login_required(login_url='login')
@@ -51,20 +54,27 @@ def view_supervisao(request):
     if not verificar_grupo(request.user, 'supervisao'):
         raise PermissionDenied
 
-    total_usuarios = User.objects.count()
-
     usuarios = User.objects.all()
 
+    busca = request.GET.get('buscar')
+
+    if busca:
+        usuarios = usuarios.filter(
+            Q(username__icontains=busca) |
+            Q(first_name__icontains=busca) |
+            Q(last_name__icontains=busca) |
+            Q(email__icontains=busca)
+        )
+
     contexto = {
-        'total_usuarios': total_usuarios,
-        'usuarios': usuarios
+        'usuarios': usuarios,
+        'total_usuarios': User.objects.count(),
+        'total_ativos': User.objects.filter(is_active=True).count(),
+        'total_inativos': User.objects.filter(is_active=False).count(),
+        'total_admins': User.objects.filter(is_superuser=True).count(),
     }
 
-    return render(
-        request,
-        'painel/supervisao.html',
-        contexto
-    )
+    return render(request, 'painel/supervisao.html', contexto)
 
 @login_required
 def view_atendente(request):
@@ -78,3 +88,14 @@ def view_caixa(request):
         raise PermissionDenied
     return render(request, 'painel/caixa.html')
 
+
+@login_required
+def alterar_status(request, user_id):
+
+    usuario = get_object_or_404(User, id=user_id)
+
+    usuario.is_active = not usuario.is_active
+
+    usuario.save()
+
+    return redirect('view_supervisao')

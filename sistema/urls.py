@@ -45,6 +45,8 @@ urlpatterns = [
     path('painel/gerencia-geral/', painel_views.view_gerencia_geral, name='view_gerencia_geral'),
     path('painel/gerencia/', painel_views.view_gerencia, name='view_gerencia'),
     path('painel/supervisao/', painel_views.view_supervisao, name='view_supervisao'),
+    path('supervisao/', painel_views.view_supervisao, name='view_supervisao'),
     path('painel/atendente/', painel_views.view_atendente, name='view_atendente'),
     path('painel/caixa/', painel_views.view_caixa, name='view_caixa'),
+    path('painel/alterar-status/<int:user_id>/',painel_views.alterar_status,name='alterar_status'),
 ]

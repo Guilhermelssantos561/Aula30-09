@@ -91,7 +91,7 @@ def mfa_view(request):
 
             del request.session['pre_2fa_user_id']
 
-            return render(request, 'painel/supervisao.html')
+            return redirect('view_supervisao')
 
         else:
             messages.error(request, 'Código inválido ou expirado.')

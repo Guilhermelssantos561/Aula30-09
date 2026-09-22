@@ -1,466 +1,384 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>GameVerse | Supervisor</title>
-
-https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800&family=Poppins:wght@300;400;500;600&display=swap
-
-https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css
-
-https://cdn.jsdelivr.net/npm/chart.jsscript>
-
-<style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    font-family:'Poppins',sans-serif;
-    background:#050915;
-    color:white;
-}
-
-/* HEADER */
-
-header{
-    height:75px;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:0 40px;
-
-    background:rgba(3,10,25,.95);
-
-    border-bottom:1px solid rgba(0,234,255,.2);
-
-    position:sticky;
-    top:0;
-
-    z-index:999;
-}
-
-.logo{
-    font-family:'Orbitron',sans-serif;
-    font-size:28px;
-    font-weight:bold;
-}
-
-.logo span{
-    color:#00eaff;
-    text-shadow:0 0 15px #00eaff;
-}
-
-nav{
-    display:flex;
-    gap:15px;
-}
-
-nav a{
-    color:#bfc8de;
-    text-decoration:none;
-    padding:10px 16px;
-    border-radius:10px;
-    transition:.3s;
-}
-
-nav a:hover{
-    background:#00eaff20;
-    color:#00eaff;
-}
-
-/* LAYOUT */
-
-.container{
-    display:flex;
-    min-height:calc(100vh - 75px);
-}
-
-/* SIDEBAR */
-
-.sidebar{
-    width:250px;
-
-    background:
-    linear-gradient(
-        180deg,
-        #071120,
-        #030711
-    );
-
-    border-right:1px solid rgba(0,234,255,.2);
-
-    padding:30px 20px;
-}
-
-.sidebar h2{
-    color:#00eaff;
-    margin-bottom:30px;
-
-    font-family:'Orbitron',sans-serif;
-}
-
-.sidebar ul{
-    list-style:none;
-}
-
-.sidebar li{
-    margin-bottom:15px;
-}
-
-.sidebar a{
-    display:flex;
-    align-items:center;
-    gap:10px;
-
-    text-decoration:none;
-    color:#a7b0c6;
-
-    padding:15px;
-
-    border-radius:10px;
-
-    transition:.3s;
-}
-
-.sidebar a:hover{
-    background:#00eaff20;
-    color:#00eaff;
-    transform:translateX(5px);
-}
-
-/* CONTEÚDO */
-
-.content{
-    flex:1;
-    padding:30px;
-}
-
-.hero{
-    padding:30px;
-    border-radius:20px;
-
-    background:
-    linear-gradient(
-        135deg,
-        rgba(0,234,255,.15),
-        rgba(123,47,255,.12)
-    );
-
-    margin-bottom:30px;
-
-    border:1px solid rgba(0,234,255,.15);
-}
-
-.hero h1{
-    font-family:'Orbitron',sans-serif;
-    color:#00eaff;
-    margin-bottom:10px;
-}
-
-.hero p{
-    color:#a2acc0;
-}
-
-/* CARDS */
-
-.cards{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-    margin-bottom:30px;
-}
-
-.card{
-    background:#0a1122;
-
-    border-radius:20px;
-
-    padding:25px;
-
-    border:1px solid rgba(0,234,255,.15);
-
-    transition:.3s;
-}
-
-.card:hover{
-    transform:translateY(-5px);
-
-    box-shadow:
-    0 0 25px rgba(0,234,255,.2);
-}
-
-.card i{
-    color:#00eaff;
-    font-size:28px;
-    margin-bottom:15px;
-}
-
-.card h3{
-    color:#9fb1d2;
-    margin-bottom:10px;
-}
-
-.valor{
-    font-size:35px;
-    font-weight:bold;
-}
-
-/* GRÁFICO */
-
-.chart-box{
-    background:#0a1122;
-
-    border-radius:20px;
-
-    padding:25px;
-
-    margin-bottom:30px;
-
-    border:1px solid rgba(0,234,255,.15);
-}
-
-/* TABELAS */
-
-.tabela{
-    background:#0a1122;
-
-    margin-bottom:25px;
-
-    border-radius:20px;
-
-    padding:25px;
-
-    border:1px solid rgba(0,234,255,.15);
-}
-
-.tabela h2{
-    color:#00eaff;
-    margin-bottom:20px;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-}
-
-th{
-    background:#101a33;
-    color:#00eaff;
-    padding:15px;
-}
-
-td{
-    padding:15px;
-    border-bottom:1px solid #1a2744;
-}
-
-.status{
-    background:#00ff8870;
-    padding:5px 12px;
-    border-radius:8px;
-}
-
-/* FOOTER */
-
-footer{
-    text-align:center;
-    padding:25px;
-
-    background:#030711;
-
-    border-top:1px solid rgba(0,234,255,.15);
-}
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameVerse - Controle de Usuários</title>
+    <!-- CSS / Bootstrap & FontAwesome para ícones -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #030712;
+            color: #f3f4f6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #0b0f19;
+            min-height: 100vh;
+            border-right: 1px solid #1f2937;
+        }
+        .nav-link {
+            color: #9ca3af;
+            border-radius: 8px;
+            margin-bottom: 4px;
+        }
+        .nav-link.active, .nav-link:hover {
+            background: linear-gradient(90deg, #4f46e5 0%, #7c3aed 100%);
+            color: #fff;
+        }
+        .card-stat {
+            background-color: #0b0f19;
+            border: 1px solid #1f2937;
+            border-radius: 12px;
+        }
+        .table-dark-custom {
+            background-color: #0b0f19;
+            border-radius: 12px;
+            border: 1px solid #1f2937;
+            overflow: hidden;
+        }
+        .table-dark-custom th {
+            background-color: #111827;
+            color: #9ca3af;
+            border-bottom: 1px solid #1f2937;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+        .table-dark-custom td {
+            border-bottom: 1px solid #1f2937;
+            vertical-align: middle;
+            color: #e5e7eb;
+        }
+        .badge-role {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .badge-admin { background-color: rgba(124, 58, 237, 0.2); color: #a78bfa; border: 1px solid #7c3aed; }
+        .badge-supervisor { background-color: rgba(14, 165, 233, 0.2); color: #38bdf8; border: 1px solid #0ea5e9; }
+        .badge-diretor { background-color: rgba(217, 70, 239, 0.2); color: #f0abfc; border: 1px solid #d946ef; }
+        .badge-caixa { background-color: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid #10b981; }
+        .badge-gerencia { background-color: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid #f59e0b; }
+        .badge-suporte { background-color: rgba(6, 182, 212, 0.2); color: #22d3ee; border: 1px solid #06b6d4; }
+        
+        .perm-tag {
+            display: inline-block;
+            background-color: #111827;
+            border: 1px solid #374151;
+            color: #38bdf8;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            margin-right: 4px;
+        }
+        .form-check-input{
+        width:50px;
+        height:25px;
+        cursor:pointer;
+        }
+
+        .form-check-input:checked{
+            background-color:#22d3ee;
+            border-color:#22d3ee;
+        }
+
+        .form-check-input:not(:checked){
+            background-color:#4b5563;
+            border-color:#4b5563;
+        }
+        .form-switch .form-check-input:checked {
+            background-color: #06b6d4;
+            border-color: #06b6d4;
+        }
+    </style>
 </head>
+<body class="d-flex">
 
-<body>
+    <!-- Sidebar -->
+    <div class="sidebar p-3 d-flex flex-column">
+        <h3 class="text-info fw-bold mb-4 ms-2"><i class="fa-solid fa-gamepad me-2"></i>GAMEVERSE</h3>
+        <small class="text-secondary fw-bold mb-2">PAINEL DE CONTROLE</small>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item"><a href="#" class="nav-link"><i class="fa-solid fa-chart-pie me-2"></i> Dashboard</a></li>
+            <li><a href="#" class="nav-link active"><i class="fa-solid fa-users me-2"></i> Usuários</a></li>
+            <li><a href="#" class="nav-link"><i class="fa-solid fa-shield-halved me-2"></i> Permissões</a></li>
+            <li><a href="#" class="nav-link"><i class="fa-solid fa-chart-line me-2"></i> Relatórios</a></li>
+            <li><a href="#" class="nav-link"><i class="fa-solid fa-gear me-2"></i> Configurações</a></li>
+        </ul>
+        <hr class="border-secondary">
+        <a href="#" class="nav-link text-danger"><i class="fa-solid fa-right-from-bracket me-2"></i> Sair</a>
+    </div>
 
-<header>
+    <!-- Conteúdo Principal -->
+    <div class="flex-grow-1 p-4">
+        
+        <!-- Navbar Superior -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <small class="text-info font-monospace">CONTROLE DE USUÁRIOS</small>
+                <h2 class="fw-bold m-0">USUÁRIOS <span class="text-info">CADASTRADOS</span></h2>
+                <small class="text-secondary">Gerencie os usuários do sistema, suas funções, status e permissões de acesso.</small>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <a href="#" class="text-light text-decoration-none"><i class="fa-solid fa-house me-1"></i> Home</a>
+                <a href="#" class="text-light text-decoration-none"><i class="fa-solid fa-user-plus me-1"></i> Cadastro</a>
+                <button class="btn btn-sm btn-outline-info"><i class="fa-solid fa-user-shield me-1"></i> Supervisor <i class="fa-solid fa-chevron-down ms-1"></i></button>
+            </div>
+        </div>
 
-<div class="logo">
-GAME<span>VERSE</span>
-</div>
+        <!-- Cards de Estatísticas -->
+        <div class="row g-3 mb-4">
+            <div class="col-md-3">
+                <div class="card-stat p-3 d-flex justify-content-between align-items-center">
+                    <div>
+                        <small class="text-secondary fw-bold">TOTAL DE USUÁRIOS</small>
+                        <h3 class="fw-bold m-0">{{ total_usuarios }}</h3>
+                    </div>
+                    <i class="fa-solid fa-users fs-2 text-primary"></i>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card-stat p-3 d-flex justify-content-between align-items-center">
+                    <div>
+                        <small class="text-secondary fw-bold">ATIVOS</small>
+                        <h3 class="fw-bold m-0">{{ total_ativos }}</h3>
+                    </div>
+                    <i class="fa-solid fa-circle-check fs-2 text-success"></i>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card-stat p-3 d-flex justify-content-between align-items-center">
+                    <div>
+                        <small class="text-secondary fw-bold">INATIVOS</small>
+                        <h3 class="fw-bold m-0">{{ total_inativos }}</h3>
+                    </div>
+                    <i class="fa-solid fa-circle-minus fs-2 text-danger"></i>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card-stat p-3 d-flex justify-content-between align-items-center">
+                    <div>
+                        <small class="text-secondary fw-bold">ADMINISTRADORES</small>
+                        <h3 class="fw-bold m-0">{{ total_admins }}</h3>
+                    </div>
+                    <i class="fa-solid fa-user-shield fs-2 text-warning"></i>
+                </div>
+            </div>
+        </div>
+        <!-- Barra de Pesquisa -->
+        <div class="card-stat p-3 mb-4">
+            <form method="GET" class="row g-3 align-items-center">
 
-<nav>
-#<i class="fas fa-home"></i> Home</a>
-#<i class="fas fa-users"></i> Usuários</a>
-#<i class="fas fa-chart-line"></i> Relatórios</a>
-#<i class="fas fa-right-from-bracket"></i> Sair</a>
-</nav>
+                <div class="col-md-7">
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-info">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </span>
 
-</header>
+                        <input
+                            type="text"
+                            name="buscar"
+                            class="form-control bg-dark text-light border-secondary"
+                            placeholder="Buscar por nome, e-mail ou usuário..."
+                            value="{{ request.GET.buscar }}"
+                        >
+                    </div>
+                </div>
 
-<div class="container">
+                <div class="col-md-2">
+                    <select name="funcao" class="form-select bg-dark text-light border-secondary">
+                        <option value="">Todas</option>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Supervisor">Supervisor</option>
+                        <option value="Usuário">Usuário</option>
+                    </select>
+                </div>
 
-<aside class="sidebar">
+                <div class="col-md-2">
+                    <select name="status" class="form-select bg-dark text-light border-secondary">
+                        <option value="">Todos</option>
+                        <option value="ativo">Ativo</option>
+                        <option value="inativo">Inativo</option>
+                    </select>
+                </div>
 
-<h2>SUPERVISOR</h2>
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-info w-100">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
 
-<ul>
-<li>#<i class="fas fa-chart-pie"></i> Dashboard</a></li>
-<li>#<i class="fas fa-users"></i> Usuários</a></li>
-<li>#<i class="fas fa-cart-shopping"></i> Vendas</a></li>
-<li>#<i class="fas fa-gamepad"></i> Jogos</a></li>
-<li>#<i class="fas fa-file-lines"></i> Relatórios</a></li>
-<li>#<i class="fas fa-gear"></i> Configurações</a></li>
-</ul>
+            </form>
+        </div>
+        <!-- Tabela de Usuários Dinâmica com SQLite -->
+        <div class="table-dark-custom p-3">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6 class="m-0 fw-bold"><i class="fa-solid fa-list me-2"></i>LISTA DE USUÁRIOS</h6>
+            </div>
 
-</aside>
+            <table class="table table-dark table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>USUÁRIO</th>
+                        <th>E-MAIL</th>
+                        <th>FUNÇÃO</th>
+                        <th>STATUS</th>
+                        <th>PERMISSÕES (Acesso ao Dashboard)</th>
+                        <th class="text-end">AÇÕES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in usuarios %}
+                    <tr>
+                    
+                        <td>{{ usuario.id }}</td>
+                    
+                        <td>
+                            <i class="fa-regular fa-user-circle fs-5 me-2 text-secondary"></i>
+                    
+                            {% if usuario.first_name %}
+                                <strong>{{ usuario.first_name }} {{ usuario.last_name }}</strong>
+                            {% else %}
+                                <strong>{{ usuario.username }}</strong>
+                            {% endif %}
+                        </td>
+                    
+                        <td>{{ usuario.email }}</td>
+                    
+                        <td>
 
-<main class="content">
+                            {% if usuario.is_superuser %}
+                                <span class="badge-role badge-admin">
+                                    <i class="fa-solid fa-shield-halved me-1"></i>
+                                    Administrador
+                                </span>
+                        
+                            {% elif usuario.groups.first %}
+                        
+                                {% with grupo=usuario.groups.first.name %}
+                        
+                                    {% if grupo == 'supervisao' %}
+                                        <span class="badge-role badge-supervisor">
+                                            <i class="fa-solid fa-user-shield me-1"></i>
+                                            Supervisor
+                                        </span>
+                        
+                                    {% elif grupo == 'diretoria' %}
+                                        <span class="badge-role badge-diretor">
+                                            <i class="fa-solid fa-building me-1"></i>
+                                            Diretoria
+                                        </span>
+                        
+                                    {% elif grupo == 'gerencia' %}
+                                        <span class="badge-role badge-gerencia">
+                                            <i class="fa-solid fa-briefcase me-1"></i>
+                                            Gerência
+                                        </span>
+                        
+                                    {% elif grupo == 'caixa' %}
+                                        <span class="badge-role badge-caixa">
+                                            <i class="fa-solid fa-cash-register me-1"></i>
+                                            Caixa
+                                        </span>
+                        
+                                    {% elif grupo == 'atendente' %}
+                                        <span class="badge-role badge-suporte">
+                                            <i class="fa-solid fa-headset me-1"></i>
+                                            Atendente
+                                        </span>
+                        
+                                    {% else %}
+                                        <span class="badge-role badge-supervisor">
+                                            {{ grupo }}
+                                        </span>
+                                    {% endif %}
+                        
+                                {% endwith %}
+                        
+                            {% else %}
+                        
+                                <span class="badge-role badge-supervisor">
+                                    <i class="fa-solid fa-user me-1"></i>
+                                    Usuário
+                                </span>
+                        
+                            {% endif %}
+                        
+                        </td>
+                    
+                        <td>
 
-<div class="hero">
+                            {% url 'alterar_status' usuario.id %}
+                                {% csrf_token %}
+                        
+                                <div class="form-check form-switch">
+                        
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        onchange="this.form.submit()"
+                                        {% if usuario.is_active %}checked{% endif %}
+                                    >
+                        
+                                    <label class="form-check-label ms-2">
+                        
+                                        {% if usuario.is_active %}
+                                            <span class="text-success">
+                                                Ativo
+                                            </span>
+                                        {% else %}
+                                            <span class="text-danger">
+                                                Inativo
+                                            </span>
+                                        {% endif %}
+                        
+                                    </label>
+                        
+                                </div>
+                        
+                            </form>
+                        
+                        </td>
+                    
+                        <td>
+                            {% for grupo in usuario.groups.all %}
+                                <span class="perm-tag">
+                                    {{ grupo.name }}
+                                </span>
+                            {% empty %}
+                                <span class="perm-tag">
+                                    Sem Grupo
+                                </span>
+                            {% endfor %}
+                        </td>
+                    
+                        <td class="text-end">
+                            <button class="btn btn-sm btn-outline-info">
+                                Editar
+                            </button>
+                    
+                            <button class="btn btn-sm btn-outline-danger">
+                                Excluir
+                            </button>
+                        </td>
+                    
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center">
+                            Nenhum usuário encontrado.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-<h1>Painel do Supervisor</h1>
-
-<p>
-Acompanhe vendas, usuários cadastrados e o desempenho da plataforma em tempo real.
-</p>
-
-</div>
-
-<div class="cards">
-
-<div class="card">
-<i class="fas fa-dollar-sign"></i>
-<h3>Vendas Hoje</h3>
-<div class="valor">R$ 12.750</div>
-</div>
-
-<div class="card">
-<i class="fas fa-users"></i>
-<h3>Usuários</h3>
-<div class="valor">
-    {{ total_usuarios }}
-</div>
-
-<div class="card">
-<i class="fas fa-gamepad"></i>
-<h3>Jogos Vendidos</h3>
-<div class="valor">532</div>
-</div>
-
-<div class="card">
-<i class="fas fa-chart-line"></i>
-<h3>Faturamento</h3>
-<div class="valor">R$ 87K</div>
-</div>
-
-</div>
-
-<div class="chart-box">
-
-<h2>Resumo de Vendas</h2>
-
-<canvas id="grafico"></canvas>
-
-</div>
-
-<div class="tabela">
-
-<h2>Últimas Vendas</h2>
-
-<table>
-
-<tr>
-<th>Cliente</th>
-<th>Jogo</th>
-<th>Valor</th>
-<th>Status</th>
-</tr>
-
-<tr>
-<td>João Silva</td>
-<td>EA FC 26</td>
-<td>R$ 349,90</td>
-<td><span class="status">Pago</span></td>
-</tr>
-
-<tr>
-<td>Maria Costa</td>
-<td>GTA VI</td>
-<td>R$ 399,90</td>
-<td><span class="status">Pago</span></td>
-</tr>
-
-<tr>
-<td>Carlos Santos</td>
-<td>Call Of Duty</td>
-<td>R$ 299,90</td>
-<td><span class="status">Pago</span></td>
-</tr>
-
-</table>
-
-</div>
-
-<div class="tabela">
-
-<h2>Últimos Usuários Cadastrados</h2>
-
-<table>
-
-<tr>
-<th>Usuário</th>
-<th>Email</th>
-<th>Cadastro</th>
-</tr>
-
-<tr>
-<td>Pedro Lima</td>
-<td>pedro@email.com</td>
-<td>14/09/2026</td>
-</tr>
-
-<tr>
-<td>Ana Ribeiro</td>
-<td>ana@email.com</td>
-<td>14/09/2026</td>
-</tr>
-
-</table>
-
-</div>
-
-</main>
-
-</div>
-
-<footer>
-
-© 2026 GameVerse | Painel Supervisor | Criado por Guilherme Luis
-
-</footer>
-
-<script>
-
-const ctx = document.getElementById('grafico');
-
-new Chart(ctx, {
- type: 'line',
- data: {
-   labels: ['Jan','Fev','Mar','Abr','Mai','Jun'],
-   datasets: [{
-     label:'Vendas',
-     data:[12,19,15,25,30,42],
-     borderColor:'#00eaff',
-     backgroundColor:'rgba(0,234,255,.15)',
-     fill:true,
-     tension:.4
-   }]
- }
-});
-
-</script>
+    </div>
 
 </body>
 </html>
