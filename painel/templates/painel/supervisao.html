@@ -64,6 +64,24 @@
         .badge-gerencia { background-color: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid #f59e0b; }
         .badge-suporte { background-color: rgba(6, 182, 212, 0.2); color: #22d3ee; border: 1px solid #06b6d4; }
         
+        .permissao-btn{
+            cursor:pointer;
+            margin:2px;
+        }
+        .permissao-btn{
+            cursor:pointer;
+         margin:2px;
+        }
+        td .perm-tag{
+            display:inline-block;
+            margin:2px;
+            white-space:nowrap;
+        }
+        .permissao-ativa{
+            background:#06b6d4 !important;
+            color:#fff !important;
+             border-color:#06b6d4 !important;
+        }
         .perm-tag {
             display: inline-block;
             background-color: #111827;
@@ -135,7 +153,9 @@
                 <div class="card-stat p-3 d-flex justify-content-between align-items-center">
                     <div>
                         <small class="text-secondary fw-bold">TOTAL DE USUÁRIOS</small>
-                        <h3 class="fw-bold m-0">{{ total_usuarios }}</h3>
+                        <h3 class="fw-bold m-0" id="total-usuarios">
+                            {{ total_usuarios }}
+                        </h3>
                     </div>
                     <i class="fa-solid fa-users fs-2 text-primary"></i>
                 </div>
@@ -144,7 +164,9 @@
                 <div class="card-stat p-3 d-flex justify-content-between align-items-center">
                     <div>
                         <small class="text-secondary fw-bold">ATIVOS</small>
-                        <h3 class="fw-bold m-0">{{ total_ativos }}</h3>
+                        <h3 class="fw-bold m-0" id="total-ativos">
+                            {{ total_ativos }}
+                        </h3>
                     </div>
                     <i class="fa-solid fa-circle-check fs-2 text-success"></i>
                 </div>
@@ -153,7 +175,9 @@
                 <div class="card-stat p-3 d-flex justify-content-between align-items-center">
                     <div>
                         <small class="text-secondary fw-bold">INATIVOS</small>
-                        <h3 class="fw-bold m-0">{{ total_inativos }}</h3>
+                        <h3 class="fw-bold m-0" id="total-inativos">
+                            {{ total_inativos }}
+                        </h3>
                     </div>
                     <i class="fa-solid fa-circle-minus fs-2 text-danger"></i>
                 </div>
@@ -233,8 +257,8 @@
                 </thead>
                 <tbody>
                     {% for usuario in usuarios %}
-                    <tr>
-                    
+                    <tr data-status="{% if usuario.is_active %}ativo{% else %}inativo{% endif %}">
+                       
                         <td>{{ usuario.id }}</td>
                     
                         <td>
@@ -250,110 +274,123 @@
                         <td>{{ usuario.email }}</td>
                     
                         <td>
-
-                            {% if usuario.is_superuser %}
-                                <span class="badge-role badge-admin">
-                                    <i class="fa-solid fa-shield-halved me-1"></i>
-                                    Administrador
-                                </span>
+                            <select
+                                class="form-select bg-dark text-light border-info funcao-select"
+                                data-id="{{ usuario.id }}"
+                            >
                         
-                            {% elif usuario.groups.first %}
-                        
-                                {% with grupo=usuario.groups.first.name %}
-                        
-                                    {% if grupo == 'supervisao' %}
-                                        <span class="badge-role badge-supervisor">
-                                            <i class="fa-solid fa-user-shield me-1"></i>
-                                            Supervisor
-                                        </span>
-                        
-                                    {% elif grupo == 'diretoria' %}
-                                        <span class="badge-role badge-diretor">
-                                            <i class="fa-solid fa-building me-1"></i>
-                                            Diretoria
-                                        </span>
-                        
-                                    {% elif grupo == 'gerencia' %}
-                                        <span class="badge-role badge-gerencia">
-                                            <i class="fa-solid fa-briefcase me-1"></i>
-                                            Gerência
-                                        </span>
-                        
-                                    {% elif grupo == 'caixa' %}
-                                        <span class="badge-role badge-caixa">
-                                            <i class="fa-solid fa-cash-register me-1"></i>
-                                            Caixa
-                                        </span>
-                        
-                                    {% elif grupo == 'atendente' %}
-                                        <span class="badge-role badge-suporte">
-                                            <i class="fa-solid fa-headset me-1"></i>
-                                            Atendente
-                                        </span>
-                        
-                                    {% else %}
-                                        <span class="badge-role badge-supervisor">
-                                            {{ grupo }}
-                                        </span>
+                                <option value="usuario"
+                                    {% if not usuario.groups.first and not usuario.is_superuser %}
+                                    selected
                                     {% endif %}
-                        
-                                {% endwith %}
-                        
-                            {% else %}
-                        
-                                <span class="badge-role badge-supervisor">
-                                    <i class="fa-solid fa-user me-1"></i>
+                                >
                                     Usuário
+                                </option>
+                        
+                                <option value="administrador"
+                                    {% if usuario.is_superuser %}
+                                    selected
+                                    {% endif %}
+                                >
+                                    Administrador
+                                </option>
+                        
+                                <option value="caixa"
+                                    {% if usuario.groups.first.name == 'caixa' %}
+                                    selected
+                                    {% endif %}
+                                >
+                                    Caixa
+                                </option>
+                        
+                                <option value="diretoria"
+                                    {% if usuario.groups.first.name == 'diretoria' %}
+                                    selected
+                                    {% endif %}
+                                >
+                                    Diretor
+                                </option>
+                        
+                                <option value="gerencia"
+                                    {% if usuario.groups.first.name == 'gerencia' %}
+                                    selected
+                                    {% endif %}
+                                >
+                                    Gerência
+                                </option>
+                        
+                                <option value="gerencia_geral"
+                                    {% if usuario.groups.first.name == 'gerencia_geral' %}
+                                    selected
+                                    {% endif %}
+                                >
+                                    Gerência-Geral
+                                </option>
+                        
+                                <option value="supervisao"
+                                    {% if usuario.groups.first.name == 'supervisao' %}
+                                    selected
+                                    {% endif %}
+                                >
+                                    Supervisor
+                                </option>
+                        
+                            </select>
+                        </td>
+                    
+                        <td>
+                            <div class="form-check form-switch d-flex align-items-center">
+                        
+                                <input
+                                    class="form-check-input status-switch"
+                                    type="checkbox"
+                                    data-id="{{ usuario.id }}"
+                                    {% if usuario.is_active %}checked{% endif %}
+                                >
+                        
+                                <span class="ms-2 fw-bold status-text">
+                                    {% if usuario.is_active %}
+                                        <span class="text-success">ATIVO</span>
+                                    {% else %}
+                                        <span class="text-danger">INATIVO</span>
+                                    {% endif %}
                                 </span>
                         
-                            {% endif %}
-                        
+                            </div>
                         </td>
                     
                         <td>
 
-                            {% url 'alterar_status' usuario.id %}
-                                {% csrf_token %}
+                            <span class="perm-tag permissao-btn"
+                                  data-id="{{ usuario.id }}"
+                                  data-grupo="administradores">
+                                Administrador
+                            </span>
                         
-                                <div class="form-check form-switch">
+                            <span class="perm-tag permissao-btn"
+                                  data-id="{{ usuario.id }}"
+                                  data-grupo="caixa">
+                                Caixa
+                            </span>
                         
-                                    <input
-                                        class="form-check-input"
-                                        type="checkbox"
-                                        onchange="this.form.submit()"
-                                        {% if usuario.is_active %}checked{% endif %}
-                                    >
+                            <span class="perm-tag permissao-btn"
+                                  data-id="{{ usuario.id }}"
+                                  data-grupo="diretoria">
+                                Diretor
+                            </span>
                         
-                                    <label class="form-check-label ms-2">
+                            <span class="perm-tag permissao-btn"
+                                  data-id="{{ usuario.id }}"
+                                  data-grupo="gerencia">
+                                Gerente
+                            </span>
                         
-                                        {% if usuario.is_active %}
-                                            <span class="text-success">
-                                                Ativo
-                                            </span>
-                                        {% else %}
-                                            <span class="text-danger">
-                                                Inativo
-                                            </span>
-                                        {% endif %}
+                            <span class="perm-tag permissao-btn"
+                                  data-id="{{ usuario.id }}"
+                                  data-grupo="supervisao">
+                                Supervisor
+                            </span>
                         
-                                    </label>
-                        
-                                </div>
-                        
-                            </form>
-                        
-                        </td>
-                    
-                        <td>
-                            {% for grupo in usuario.groups.all %}
-                                <span class="perm-tag">
-                                    {{ grupo.name }}
-                                </span>
-                            {% empty %}
-                                <span class="perm-tag">
-                                    Sem Grupo
-                                </span>
-                            {% endfor %}
                         </td>
                     
                         <td class="text-end">
@@ -361,7 +398,10 @@
                                 Editar
                             </button>
                     
-                            <button class="btn btn-sm btn-outline-danger">
+                            <button
+                                class="btn btn-sm btn-outline-danger btn-excluir"
+                                data-id="{{ usuario.id }}"
+                            >
                                 Excluir
                             </button>
                         </td>
@@ -379,6 +419,161 @@
         </div>
 
     </div>
+</div>
+<script>
 
+    document.querySelectorAll('.funcao-select').forEach(function(select){
+    
+        select.addEventListener('change', function(){
+    
+            fetch(`/painel/alterar-funcao/${this.dataset.id}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({
+                    funcao: this.value
+                })
+            });
+    
+        });
+    
+    });
+    
+</script>
+<script>
+    document.querySelectorAll('.status-switch').forEach(function(switchBtn){
+    
+        switchBtn.addEventListener('change', function(){
+    
+            let statusText =
+                this.parentElement.querySelector('.status-text');
+    
+            let ativos =
+                document.getElementById('total-ativos');
+    
+            let inativos =
+                document.getElementById('total-inativos');
+    
+            let totalAtivos =
+                parseInt(ativos.innerText);
+    
+            let totalInativos =
+                parseInt(inativos.innerText);
+    
+            if(this.checked){
+    
+                statusText.innerHTML =
+                    '<span class="text-success">ATIVO</span>';
+    
+                ativos.innerText = totalAtivos + 1;
+                inativos.innerText = totalInativos - 1;
+    
+            }else{
+    
+                statusText.innerHTML =
+                    '<span class="text-danger">INATIVO</span>';
+    
+                ativos.innerText = totalAtivos - 1;
+                inativos.innerText = totalInativos + 1;
+            }
+    
+            fetch(`/painel/alterar-status/${this.dataset.id}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            });
+    
+        });
+    
+    });
+    </script>
+<script>
+
+    document.querySelectorAll('.btn-excluir').forEach(function(botao){
+    
+        botao.addEventListener('click', function(){
+    
+            if(!confirm('Deseja realmente excluir este usuário?')){
+                return;
+            }
+    
+            let linha = this.closest('tr');
+    
+            fetch(`/painel/excluir-usuario/${this.dataset.id}/`, {
+    
+                method: 'POST',
+    
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+    
+            })
+            .then(response => response.json())
+            .then(data => {
+    
+                if(data.sucesso){
+                    let status = linha.dataset.status;
+
+                        if(status === 'ativo'){
+                            let ativos = document.getElementById('total-ativos');
+                            ativos.innerText = parseInt(ativos.innerText) - 1;
+                        }else{
+                            let inativos = document.getElementById('total-inativos');
+                            inativos.innerText = parseInt(inativos.innerText) - 1;
+                        }
+                    linha.remove();
+    
+                    let totalUsuarios =
+                        document.getElementById('total-usuarios');
+    
+                    totalUsuarios.innerText =
+                        parseInt(totalUsuarios.innerText) - 1;
+    
+                }
+    
+            });
+    
+        });
+    
+    });
+    
+    </script>
+    <script>
+
+        document.querySelectorAll('.permissao-btn').forEach(function(btn){
+        
+            btn.addEventListener('click', function(){
+        
+                let usuarioId = this.dataset.id;
+                let grupo = this.dataset.grupo;
+        
+                this.parentElement.querySelectorAll('.permissao-btn')
+                    .forEach(x => x.classList.remove('permissao-ativa'));
+        
+                this.classList.add('permissao-ativa');
+        
+                fetch(`/painel/alterar-permissao/${usuarioId}/`, {
+        
+                    method:'POST',
+        
+                    headers:{
+                        'Content-Type':'application/json',
+                        'X-CSRFToken':'{{ csrf_token }}'
+                    },
+        
+                    body:JSON.stringify({
+                        grupo:grupo
+                    })
+        
+                });
+        
+            });
+        
+        });
+        
+        </script>
 </body>
 </html>

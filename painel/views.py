@@ -10,7 +10,9 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.db.models import Q
 from django.shortcuts import redirect, get_object_or_404
-
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
+from django.contrib.auth.models import User, Group
 
 
 @login_required(login_url='login')
@@ -90,12 +92,99 @@ def view_caixa(request):
 
 
 @login_required
-def alterar_status(request, user_id):
 
-    usuario = get_object_or_404(User, id=user_id)
+def alterar_status(request, usuario_id):
+    if request.method == "POST":
 
-    usuario.is_active = not usuario.is_active
+        usuario = get_object_or_404(User, id=usuario_id)
 
-    usuario.save()
+        usuario.is_active = not usuario.is_active
+        usuario.save()
 
-    return redirect('view_supervisao')
+        return JsonResponse({
+            "status": usuario.is_active
+        })
+
+    return JsonResponse({"erro": "Método inválido"}, status=400)
+
+import json
+
+@login_required
+def alterar_funcao(request, usuario_id):
+
+    if request.method == 'POST':
+
+        usuario = get_object_or_404(User, id=usuario_id)
+
+        dados = json.loads(request.body)
+        funcao = dados.get('funcao')
+
+        usuario.groups.clear()
+        usuario.is_superuser = False
+        usuario.is_staff = False
+
+        if funcao == 'administrador':
+            usuario.is_superuser = True
+            usuario.is_staff = True
+
+        elif funcao != 'usuario':
+            grupo, _ = Group.objects.get_or_create(name=funcao)
+            usuario.groups.add(grupo)
+
+        usuario.save()
+
+        return JsonResponse({'sucesso': True})
+
+    return JsonResponse({'sucesso': False})
+@login_required
+def alterar_permissao(request, usuario_id):
+
+    if request.method == "POST":
+
+        dados = json.loads(request.body)
+
+        grupo_nome = dados.get("grupo")
+
+        usuario = get_object_or_404(
+            User,
+            id=usuario_id
+        )
+
+        usuario.groups.clear()
+
+        grupo, created = Group.objects.get_or_create(
+            name=grupo_nome
+        )
+
+        usuario.groups.add(grupo)
+
+        return JsonResponse({
+            "sucesso": True
+        })
+
+    return JsonResponse({
+        "sucesso": False
+    })
+@login_required
+def excluir_usuario(request, usuario_id):
+
+    if request.method == "POST":
+
+        usuario = get_object_or_404(User, id=usuario_id)
+
+        # Evita excluir a si mesmo (opcional)
+        if usuario == request.user:
+            return JsonResponse({
+                'sucesso': False,
+                'mensagem': 'Você não pode excluir seu próprio usuário.'
+            })
+
+        usuario.delete()
+
+        return JsonResponse({
+            'sucesso': True
+        })
+
+    return JsonResponse({
+        'sucesso': False
+    })

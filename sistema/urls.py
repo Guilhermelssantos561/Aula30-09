@@ -31,7 +31,6 @@ urlpatterns = [
     path('ativar/<uidb64>/<token>/', cadastro_view.ativar_conta, name='ativar_conta'),
     path('login/', login_view.login_view, name='login'),
     path('login/mfa/', login_view.mfa_view, name='mfa'),
-    path('painel/', painel_views.painel_principal, name='painel'),
     path('logout/', login_view.logout_view, name='logout'),
     path('carrinho/', carrinho_view.carrinho, name='carrinho'),
 
@@ -48,5 +47,8 @@ urlpatterns = [
     path('supervisao/', painel_views.view_supervisao, name='view_supervisao'),
     path('painel/atendente/', painel_views.view_atendente, name='view_atendente'),
     path('painel/caixa/', painel_views.view_caixa, name='view_caixa'),
-    path('painel/alterar-status/<int:user_id>/',painel_views.alterar_status,name='alterar_status'),
+    path('painel/alterar-status/<int:usuario_id>/',painel_views.alterar_status,name='alterar_status'),
+    path('painel/alterar-funcao/<int:usuario_id>/',painel_views.alterar_funcao,name='alterar_funcao'),
+    path('painel/excluir-usuario/<int:usuario_id>/',painel_views.excluir_usuario,name='excluir_usuario'),
+    path('painel/alterar-permissao/<int:usuario_id>/',painel_views.alterar_permissao,name='alterar_permissao'),
 ]
