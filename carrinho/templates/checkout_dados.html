@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>Dados do Cliente</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #0f172a, #1e3a8a);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 520px;
+    }
+
+    /* Cabeçalho */
+
+    .topo {
+        text-align: center;
+        color: white;
+        margin-bottom: 20px;
+    }
+
+    .logo {
+        width: 70px;
+        height: 70px;
+        margin: 0 auto 15px;
+        border-radius: 50%;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        color: #1d4ed8;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    }
+
+    .topo h1 {
+        font-size: 26px;
+        margin-bottom: 6px;
+    }
+
+    .topo p {
+        font-size: 14px;
+        opacity: 0.85;
+    }
+
+    /* Card */
+
+    .card {
+        background: white;
+        border-radius: 18px;
+        padding: 35px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    }
+
+    .card-header {
+        margin-bottom: 25px;
+    }
+
+    .card-header h2 {
+        color: #111827;
+        font-size: 22px;
+        margin-bottom: 8px;
+    }
+
+    .card-header p {
+        color: #6b7280;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    /* Campos */
+
+    .campo {
+        margin-bottom: 20px;
+    }
+
+    .campo label {
+        display: block;
+        margin-bottom: 8px;
+        color: #374151;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .input-container {
+        position: relative;
+    }
+
+    .icone {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 18px;
+        color: #64748b;
+    }
+
+    .campo input {
+        width: 100%;
+        height: 52px;
+        border: 1px solid #d1d5db;
+        border-radius: 10px;
+        padding: 0 15px 0 45px;
+        font-size: 15px;
+        outline: none;
+        transition: 0.2s;
+        background: #f9fafb;
+    }
+
+    .campo input:focus {
+        border-color: #2563eb;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+    }
+
+    .campo input::placeholder {
+        color: #9ca3af;
+    }
+
+    /* Botão */
+
+    .btn-continuar {
+        width: 100%;
+        height: 52px;
+        border: none;
+        border-radius: 10px;
+        background: #2563eb;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.2s;
+        margin-top: 5px;
+    }
+
+    .btn-continuar:hover {
+        background: #1d4ed8;
+        transform: translateY(-1px);
+        box-shadow: 0 8px 20px rgba(37,99,235,0.25);
+    }
+
+    .btn-continuar:active {
+        transform: translateY(0);
+    }
+
+    /* Informação */
+
+    .info {
+        margin-top: 20px;
+        padding: 12px 15px;
+        background: #eff6ff;
+        border-left: 4px solid #2563eb;
+        border-radius: 6px;
+        color: #374151;
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    /* Rodapé */
+
+    .rodape {
+        text-align: center;
+        margin-top: 20px;
+        color: rgba(255,255,255,0.75);
+        font-size: 12px;
+    }
+
+    /* Responsividade */
+
+    @media (max-width: 600px) {
+
+        body {
+            padding: 15px;
+        }
+
+        .card {
+            padding: 25px 20px;
+        }
+
+        .topo h1 {
+            font-size: 22px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            font-size: 27px;
+        }
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+```
+<div class="container">
+
+    <!-- CABEÇALHO -->
+
+    <div class="topo">
+
+        <div class="logo">
+            👤
+        </div>
+
+        <h1>Cadastro de Cliente</h1>
+
+        <p>Preencha seus dados para continuar</p>
+
+    </div>
+
+
+    <!-- FORMULÁRIO -->
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h2>Dados do Cliente</h2>
+
+            <p>
+                Informe seus dados abaixo. Essas informações serão utilizadas
+                para realizar o seu cadastro no sistema.
+            </p>
+
+        </div>
+
+
+        <form method="post">
+
+            {% csrf_token %}
+
+
+            <!-- NOME -->
+
+            <div class="campo">
+
+                <label for="nome">
+                    Nome completo
+                </label>
+
+                <div class="input-container">
+
+                    <span class="icone">👤</span>
+
+                    <input
+                        type="text"
+                        id="nome"
+                        name="nome"
+                        placeholder="Digite seu nome completo"
+                        autocomplete="name"
+                        required>
+
+                </div>
+
+            </div>
+
+
+            <!-- E-MAIL -->
+
+            <div class="campo">
+
+                <label for="email">
+                    E-mail
+                </label>
+
+                <div class="input-container">
+
+                    <span class="icone">✉️</span>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="exemplo@email.com"
+                        autocomplete="email"
+                        required>
+
+                </div>
+
+            </div>
+
+
+            <!-- TELEFONE -->
+
+            <div class="campo">
+
+                <label for="telefone">
+                    Telefone
+                </label>
+
+                <div class="input-container">
+
+                    <span class="icone">📱</span>
+
+                    <input
+                        type="tel"
+                        id="telefone"
+                        name="telefone"
+                        placeholder="(00) 00000-0000"
+                        autocomplete="tel"
+                        maxlength="15"
+                        required>
+
+                </div>
+
+            </div>
+
+
+            <!-- BOTÃO -->
+
+            <button
+                type="submit"
+                class="btn-continuar">
+
+                Continuar
+                →
+                
+            </button>
+
+
+            <!-- AVISO -->
+
+            <div class="info">
+
+                🔒 Seus dados serão utilizados somente para
+                fins de cadastro e atendimento.
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <div class="rodape">
+        Sistema de Cadastro • Todos os direitos reservados
+    </div>
+
+</div>
+
+
+<!-- MÁSCARA DO TELEFONE -->
+
+<script>
+
+    const telefone = document.getElementById("telefone");
+
+    telefone.addEventListener("input", function(e) {
+
+        let valor = e.target.value.replace(/\D/g, "");
+
+        if (valor.length > 11) {
+            valor = valor.substring(0, 11);
+        }
+
+        if (valor.length <= 10) {
+
+            valor = valor.replace(
+                /^(\d{2})(\d)/,
+                "($1) $2"
+            );
+
+            valor = valor.replace(
+                /(\d{4})(\d)/,
+                "$1-$2"
+            );
+
+        } else {
+
+            valor = valor.replace(
+                /^(\d{2})(\d)/,
+                "($1) $2"
+            );
+
+            valor = valor.replace(
+                /(\d{5})(\d)/,
+                "$1-$2"
+            );
+
+        }
+
+        e.target.value = valor;
+
+    });
+
+</script>
+```
+
+</body>
+</html>

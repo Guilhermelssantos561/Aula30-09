@@ -11,6 +11,13 @@ def remover_item(request, item_id):
 def carrinho(request):
     return render(request, 'carrinho.html')
 
+# carrinho/views.py
+
+def checkout_dados(request):
+    return render(request, 'checkout_dados.html')
 
 
+from django.shortcuts import render
 
+def checkout_dados(request):
+    return render(request, 'checkout_dados.html')

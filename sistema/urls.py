@@ -21,6 +21,7 @@ from login import views as login_view
 from app import views as app_view
 from painel import views as painel_views
 from carrinho import views as carrinho_view
+from django.urls import path, include
 
 
 
@@ -33,6 +34,8 @@ urlpatterns = [
     path('login/mfa/', login_view.mfa_view, name='mfa'),
     path('logout/', login_view.logout_view, name='logout'),
     path('carrinho/', carrinho_view.carrinho, name='carrinho'),
+    path('c_produto/', include('c_produto.urls')),
+    path('checkout/', carrinho_view.checkout_dados, name='checkout_dados'),
 
 
     # Rota principal após o login
@@ -47,8 +50,8 @@ urlpatterns = [
     path('supervisao/', painel_views.view_supervisao, name='view_supervisao'),
     path('painel/atendente/', painel_views.view_atendente, name='view_atendente'),
     path('painel/caixa/', painel_views.view_caixa, name='view_caixa'),
-    path('painel/alterar-status/<int:usuario_id>/',painel_views.alterar_status,name='alterar_status'),
-    path('painel/alterar-funcao/<int:usuario_id>/',painel_views.alterar_funcao,name='alterar_funcao'),
-    path('painel/excluir-usuario/<int:usuario_id>/',painel_views.excluir_usuario,name='excluir_usuario'),
-    path('painel/alterar-permissao/<int:usuario_id>/',painel_views.alterar_permissao,name='alterar_permissao'),
+    path('painel/alterar-status/<int:usuario_id>/', painel_views.alterar_status, name='alterar_status'),
+    path('painel/alterar-funcao/<int:usuario_id>/', painel_views.alterar_funcao, name='alterar_funcao'),
+    path('painel/excluir-usuario/<int:usuario_id>/', painel_views.excluir_usuario, name='excluir_usuario'),
+    path('painel/alterar-permissao/<int:usuario_id>/', painel_views.alterar_permissao, name='alterar_permissao'),
 ]
