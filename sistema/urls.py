@@ -36,6 +36,7 @@ urlpatterns = [
     path('carrinho/', carrinho_view.carrinho, name='carrinho'),
     path('c_produto/', include('c_produto.urls')),
     path('checkout/', carrinho_view.checkout_dados, name='checkout_dados'),
+    path('finalizar-pedido/',carrinho_view.finalizar_pedido,name='finalizar_pedido'),
 
 
     # Rota principal após o login
@@ -54,4 +55,5 @@ urlpatterns = [
     path('painel/alterar-funcao/<int:usuario_id>/', painel_views.alterar_funcao, name='alterar_funcao'),
     path('painel/excluir-usuario/<int:usuario_id>/', painel_views.excluir_usuario, name='excluir_usuario'),
     path('painel/alterar-permissao/<int:usuario_id>/', painel_views.alterar_permissao, name='alterar_permissao'),
+    path('buscar-cliente/', carrinho_view.buscar_cliente, name='buscar_cliente'),
 ]

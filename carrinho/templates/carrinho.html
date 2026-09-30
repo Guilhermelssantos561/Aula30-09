@@ -1837,18 +1837,12 @@
     ============================================
     */
 
-        function irParaCheckout() {
+    function irParaCheckout() {
 
-            if (carrinho.length === 0) {
+alert("Redirecionando...");
 
-                 alert("Seu carrinho está vazio!");
-
-            return;
-            }
-
-            window.location.href =
-        "{% url 'checkout_dados' %}";
-    }
+window.location.href = "/cadastro/";
+}
 
 
     /*
