@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login
+import json
 from django.http import JsonResponse
 
 from .models import Pedido, ItemPedido
@@ -92,27 +93,36 @@ def checkout_dados(request):
 
 
 @login_required
-def finalizar_pedido(request):
+def finalizar(request):
+    return render(request, 'finalizar.html')
 
-    carrinho_sessao = request.session.get('carrinho', {})
+@login_required
+def pagar_agora(request):
 
-    if not carrinho_sessao:
-        return redirect('carrinho')
+    if request.method == 'POST':
 
-    pedido = Pedido.objects.create(
-        usuario=request.user
-    )
+        dados = json.loads(request.body)
 
-    for produto_id, item in carrinho_sessao.items():
+        itens = dados.get('itens', [])
 
-        ItemPedido.objects.create(
-            pedido=pedido,
-            produto_id=produto_id,
-            nome=item['nome'],
-            preco=item['preco'],
-            quantidade=item['quantidade']
+        pedido = Pedido.objects.create(
+            usuario=request.user
         )
 
-    request.session['carrinho'] = {}
+        for item in itens:
 
-    return redirect('carrinho')
+            ItemPedido.objects.create(
+                pedido=pedido,
+                produto_id=item.get('id', 0),
+                nome=item['nome'],
+                preco=item['preco'],
+                quantidade=1
+            )
+
+        return JsonResponse({
+            'sucesso': True
+        })
+
+    return JsonResponse({
+        'sucesso': False
+    })

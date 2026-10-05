@@ -36,7 +36,10 @@ urlpatterns = [
     path('carrinho/', carrinho_view.carrinho, name='carrinho'),
     path('c_produto/', include('c_produto.urls')),
     path('checkout/', carrinho_view.checkout_dados, name='checkout_dados'),
-    path('finalizar-pedido/',carrinho_view.finalizar_pedido,name='finalizar_pedido'),
+    path('finalizar/',carrinho_view.finalizar,name='finalizar'),
+    path(
+    'pagar-agora/',carrinho_view.pagar_agora,name='pagar_agora'),
+
 
 
     # Rota principal após o login

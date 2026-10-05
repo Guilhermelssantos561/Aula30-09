@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout - GameVerse</title>
+
+    <!-- Fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        /* ==========================================
+            RESET & BASE
+        ========================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at 80% 10%,
+                    rgba(0, 234, 255, 0.08),
+                    transparent 25%
+                ),
+
+                radial-gradient(
+                    circle at 20% 40%,
+                    rgba(123, 47, 255, 0.08),
+                    transparent 30%
+                ),
+
+                #050713;
+
+            color: #ffffff;
+
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button, input, select {
+            font-family: inherit;
+        }
+
+        /* ==========================================
+            HEADER
+        ========================================== */
+
+        header {
+
+            width: 100%;
+            height: 75px;
+
+            position: sticky;
+            top: 0;
+
+            z-index: 1000;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 5%;
+
+            background: rgba(5, 7, 19, 0.90);
+
+            backdrop-filter: blur(18px);
+
+            border-bottom:
+                1px solid rgba(0, 234, 255, 0.15);
+
+            box-shadow:
+                0 0 25px rgba(0, 234, 255, 0.05);
+        }
+
+        .logo {
+
+            font-family: 'Orbitron', sans-serif;
+
+            font-size: 23px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            color: #ffffff;
+        }
+
+        .logo span {
+
+            color: #00eaff;
+
+            text-shadow:
+                0 0 10px #00eaff,
+                0 0 25px rgba(0, 234, 255, 0.5);
+        }
+
+        nav {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+        }
+
+        nav a {
+
+            padding: 10px 15px;
+
+            border-radius: 8px;
+
+            color: #aeb8d0;
+
+            font-size: 14px;
+
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+
+            color: #00eaff;
+
+            background:
+                rgba(0, 234, 255, 0.07);
+
+            box-shadow:
+                0 0 15px rgba(0, 234, 255, 0.08);
+        }
+
+        .cart-button {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 10px 18px;
+
+            border:
+                1px solid #00eaff;
+
+            border-radius: 8px;
+
+            color: #00eaff;
+
+            background:
+                rgba(0, 234, 255, 0.06);
+
+            box-shadow:
+                0 0 12px rgba(0, 234, 255, 0.15);
+        }
+
+        .cart-count {
+
+            min-width: 20px;
+
+            height: 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #ff2bd6;
+
+            color: white;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+            box-shadow:
+                0 0 10px #ff2bd6;
+        }
+
+        /* ==========================================
+            LAYOUT & MAIN
+        ========================================== */
+
+        .layout {
+            display: grid;
+            grid-template-columns: 230px 1fr;
+            min-height: calc(100vh - 75px);
+        }
+
+        aside {
+            padding: 30px 20px;
+            border-right: 1px solid rgba(0, 234, 255, 0.12);
+            background: linear-gradient(180deg, rgba(9, 13, 31, 0.95), rgba(5, 7, 19, 0.85));
+        }
+
+        .sidebar-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            letter-spacing: 2px;
+            color: #00eaff;
+            margin-bottom: 20px;
+        }
+
+        .categories {
+            list-style: none;
+        }
+
+        .categories li {
+            margin-bottom: 7px;
+        }
+
+        .categories a {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 12px 14px;
+            color: #8f9ab5;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .categories a:hover,
+        .categories .active {
+            color: #ffffff;
+            background: linear-gradient(90deg, rgba(0, 234, 255, 0.12), rgba(123, 47, 255, 0.08));
+            border-left: 2px solid #00eaff;
+            box-shadow: inset 0 0 20px rgba(0, 234, 255, 0.03);
+        }
+
+        .categories i {
+            width: 18px;
+            color: #69748e;
+        }
+
+        main {
+            padding: 35px;
+            width: 100%;
+        }
+
+        /* ==========================================
+            TÍTULO
+        ========================================== */
+
+        .page-title {
+            margin-bottom: 30px;
+        }
+
+        .page-title small {
+            color: #00eaff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            letter-spacing: 3px;
+        }
+
+        .page-title h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 32px;
+            margin-top: 8px;
+        }
+
+        .page-title h1 span {
+            color: #00eaff;
+            text-shadow: 0 0 15px #00eaff;
+        }
+
+        /* ==========================================
+            CHECKOUT LAYOUT
+        ========================================== */
+
+        .checkout-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 340px;
+            gap: 25px;
+            align-items: start;
+        }
+
+        .checkout-forms {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .checkout-card {
+            background: linear-gradient(145deg, rgba(12, 17, 38, 0.96), rgba(7, 10, 25, 0.96));
+            border: 1px solid rgba(0, 234, 255, 0.14);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
+        }
+
+        .checkout-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .checkout-card-header i {
+            color: #00eaff;
+            font-size: 18px;
+        }
+
+        .checkout-card-header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            color: #ffffff;
+        }
+
+        /* ==========================================
+            FORMULÁRIOS & CAMPOS
+        ========================================== */
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            font-size: 12px;
+            color: #8b96ad;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 234, 255, 0.2);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #00eaff;
+            background: rgba(0, 234, 255, 0.05);
+            box-shadow: 0 0 12px rgba(0, 234, 255, 0.2);
+        }
+
+        /* ==========================================
+            MÉTODOS DE PAGAMENTO
+        ========================================== */
+
+        .payment-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .payment-option {
+            cursor: pointer;
+        }
+
+        .payment-option input {
+            display: none;
+        }
+
+        .payment-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .payment-box i {
+            font-size: 22px;
+            color: #69748e;
+            transition: 0.3s;
+        }
+
+        .payment-box span {
+            font-size: 13px;
+            font-weight: 600;
+            color: #8b96ad;
+        }
+
+        .payment-option input:checked + .payment-box {
+            background: rgba(0, 234, 255, 0.08);
+            border-color: #00eaff;
+            box-shadow: 0 0 15px rgba(0, 234, 255, 0.2);
+        }
+
+        .payment-option input:checked + .payment-box i,
+        .payment-option input:checked + .payment-box span {
+            color: #00eaff;
+        }
+
+        /* SEÇÃO PIX EXCLUSIVA */
+
+        .pix-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 234, 255, 0.03);
+            border: 1px dashed rgba(0, 234, 255, 0.3);
+            border-radius: 10px;
+            gap: 12px;
+        }
+
+        .pix-qr {
+            width: 140px;
+            height: 140px;
+            background: #ffffff;
+            padding: 8px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 234, 255, 0.3);
+        }
+
+        .pix-qr img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .pix-text p {
+            font-size: 13px;
+            color: #aeb8d0;
+        }
+
+        /* ==========================================
+            RESUMO & FINALIZAÇÃO
+        ========================================== */
+
+        .summary {
+            background: linear-gradient(145deg, rgba(12, 17, 38, 0.96), rgba(7, 10, 25, 0.96));
+            border: 1px solid rgba(123, 47, 255, 0.25);
+            border-radius: 15px;
+            padding: 25px;
+            position: sticky;
+            top: 100px;
+            box-shadow: 0 0 30px rgba(123, 47, 255, 0.06);
+        }
+
+        .summary h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 17px;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        .checkout-items {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .checkout-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .checkout-item-title {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .checkout-item-price {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            color: #00eaff;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            color: #8b96ad;
+            font-size: 13px;
+        }
+
+        .summary-divider {
+            border: 0;
+            border-top: 1px solid rgba(255,255,255,0.07);
+            margin: 18px 0;
+        }
+
+        .total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .total span:first-child {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .total-price {
+            color: #00eaff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 21px;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(0,234,255,0.5);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            color: #050713;
+            background: linear-gradient(90deg, #00eaff, #00ffc8);
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 15px rgba(0,234,255,0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px #00eaff, 0 0 40px rgba(0,234,255,0.25);
+        }
+
+        .back-to-cart {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 12px;
+            padding: 12px;
+            border: 1px solid rgba(0,234,255,0.25);
+            border-radius: 8px;
+            color: #8d98b0;
+            font-size: 13px;
+            transition: 0.3s;
+        }
+
+        .back-to-cart:hover {
+            color: #00eaff;
+            border-color: #00eaff;
+        }
+
+        /* ==========================================
+            FOOTER
+        ========================================== */
+
+        footer {
+            margin-top: 60px;
+            padding: 45px 5% 25px;
+            border-top: 1px solid rgba(0,234,255,0.12);
+            background: linear-gradient(180deg, #070a17, #03040a);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo span { color: #00eaff; }
+
+        .footer-description {
+            max-width: 350px;
+            color: #737e98;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .footer-column h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            color: #00eaff;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .footer-column a {
+            display: block;
+            color: #727d97;
+            font-size: 13px;
+            margin-bottom: 9px;
+            transition: 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: #ffffff;
+            padding-left: 4px;
+        }
+
+        .socials {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .socials a {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(0,234,255,0.2);
+            border-radius: 7px;
+            color: #00eaff;
+            transition: 0.3s;
+        }
+
+        .socials a:hover {
+            background: #00eaff;
+            color: #050713;
+            box-shadow: 0 0 15px rgba(0,234,255,0.5);
+        }
+
+        .copyright {
+            margin-top: 35px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            text-align: center;
+            color: #4e5870;
+            font-size: 11px;
+        }
+
+        /* ==========================================
+            RESPONSIVIDADE
+        ========================================== */
+
+        @media (max-width: 950px) {
+            .checkout-layout { grid-template-columns: 1fr; }
+            .summary { position: static; }
+            .footer-content { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 750px) {
+            header { height: auto; min-height: 70px; flex-wrap: wrap; padding: 15px 20px; gap: 10px; }
+            nav { width: 100%; justify-content: center; flex-wrap: wrap; }
+            .layout { display: block; }
+            aside { border-right: none; border-bottom: 1px solid rgba(0,234,255,0.12); }
+            .categories { display: grid; grid-template-columns: repeat(2, 1fr); gap: 5px; }
+            main { padding: 20px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .form-group.full-width { grid-column: span 1; }
+        }
+
+        @media (max-width: 500px) {
+            .payment-options { grid-template-columns: 1fr; }
+            .footer-content { grid-template-columns: 1fr; }
+            .page-title h1 { font-size: 26px; }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- ==========================================
+     MENU SUPERIOR
+========================================== -->
+
+<header>
+
+    <a href="{% url 'home' %}" class="logo">
+        GAME<span>VERSE</span>
+    </a>
+
+    <nav>
+        <a href="{% url 'home' %}">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+
+        <a href="{% url 'cadastro' %}">
+            <i class="fa-solid fa-user-plus"></i>
+            Cadastro
+        </a>
+
+        <a href="{% url 'login' %}">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            Login
+        </a>
+
+        <a href="#" class="cart-button">
+            <i class="fa-solid fa-cart-shopping"></i>
+            Carrinho
+            <span class="cart-count" id="contador-carrinho">2</span>
+        </a>
+    </nav>
+
+</header>
+
+<!-- ==========================================
+     LAYOUT
+========================================== -->
+
+<div class="layout">
+
+    <!-- MENU LATERAL -->
+    <aside>
+        <div class="sidebar-title">
+            CATEGORIAS
+        </div>
+
+        <ul class="categories">
+            <li><a href="#" class="active"><i class="fa-solid fa-crosshairs"></i> Ação</a></li>
+            <li><a href="#"><i class="fa-solid fa-map"></i> Aventura</a></li>
+            <li><a href="#"><i class="fa-solid fa-hat-wizard"></i> RPG</a></li>
+            <li><a href="#"><i class="fa-solid fa-chess"></i> Estratégia</a></li>
+            <li><a href="#"><i class="fa-solid fa-futbol"></i> Esportes</a></li>
+            <li><a href="#"><i class="fa-solid fa-car"></i> Corrida</a></li>
+            <li><a href="#"><i class="fa-solid fa-ghost"></i> Terror</a></li>
+            <li><a href="#"><i class="fa-solid fa-palette"></i> Indie</a></li>
+        </ul>
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main>
+
+        <!-- TÍTULO -->
+        <div class="page-title">
+            <small>GAMEVERSE STORE</small>
+            <h1>FINALIZAR <span>COMPRA</span></h1>
+        </div>
+
+        <!-- LAYOUT DE CHECKOUT -->
+        <div class="checkout-layout">
+
+            <!-- FORMULÁRIOS -->
+            <div class="checkout-forms">
+
+                <!-- 1. DADOS PESSOAIS -->
+                <section class="checkout-card">
+                    <div class="checkout-card-header">
+                        <i class="fa-solid fa-user-gear"></i>
+                        <h2>1. DADOS DO COMPRADOR</h2>
+                    </div>
+
+                    <form class="form-grid">
+                        <div class="form-group full-width">
+                            <label for="nome">Nome Completo</label>
+                            <input type="text" id="nome" class="form-control" placeholder="Digite seu nome completo" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">E-mail para Envio das Chaves</label>
+                            <input type="email" id="email" class="form-control" placeholder="seuemail@exemplo.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cpf">CPF</label>
+                            <input type="text" id="cpf" class="form-control" placeholder="000.000.000-00" required>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- 2. FORMA DE PAGAMENTO -->
+                <section class="checkout-card">
+                    <div class="checkout-card-header">
+                        <i class="fa-solid fa-credit-card"></i>
+                        <h2>2. PAGAMENTO</h2>
+                    </div>
+
+                    <!-- Seleção do Método -->
+                    <div class="payment-options">
+                        <label class="payment-option">
+                            <input type="radio" name="pagamento" value="pix" checked onclick="togglePaymentFields('pix')">
+                            <div class="payment-box">
+                                <i class="fa-brands fa-pix"></i>
+                                <span>PIX (Instantâneo)</span>
+                            </div>
+                        </label>
+
+                        <label class="payment-option">
+                            <input type="radio" name="pagamento" value="cartao" onclick="togglePaymentFields('cartao')">
+                            <div class="payment-box">
+                                <i class="fa-regular fa-credit-card"></i>
+                                <span>Cartão de Crédito</span>
+                            </div>
+                        </label>
+
+                        <label class="payment-option">
+                            <input type="radio" name="pagamento" value="boleto" onclick="togglePaymentFields('boleto')">
+                            <div class="payment-box">
+                                <i class="fa-solid fa-barcode"></i>
+                                <span>Boleto Bancário</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Campos de Cartão (Alternável) -->
+                    <div id="card-fields" style="display: none;">
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="num-cartao">Número do Cartão</label>
+                                <input type="text" id="num-cartao" class="form-control" placeholder="0000 0000 0000 0000">
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="nome-cartao">Nome Impresso no Cartão</label>
+                                <input type="text" id="nome-cartao" class="form-control" placeholder="Como no cartão">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="validade">Validade</label>
+                                <input type="text" id="validade" class="form-control" placeholder="MM/AA">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cvv">CVV</label>
+                                <input type="text" id="cvv" class="form-control" placeholder="123">
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="parcelas">Parcelas</label>
+                                <select id="parcelas" class="form-control">
+                                    <option value="1">1x de R$ 249,90 (sem juros)</option>
+                                    <option value="2">2x de R$ 124,95 (sem juros)</option>
+                                    <option value="3">3x de R$ 83,30 (sem juros)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exibição PIX -->
+                    <div id="pix-fields" class="pix-container">
+                        <div class="pix-qr">
+                            <i class="fa-solid fa-qrcode" style="font-size: 120px; color: #050713;"></i>
+                        </div>
+                        <div class="pix-text">
+                            <p><strong>Aprovação instantânea!</strong> O QR Code para pagamento será exibido após confirmar a ordem.</p>
+                        </div>
+                    </div>
+
+                    <!-- Exibição Boleto -->
+                    <div id="boleto-fields" style="display: none; text-align: center; padding: 15px; color: #aeb8d0; font-size: 13px;">
+                        <i class="fa-solid fa-file-invoice" style="font-size: 30px; color: #00eaff; margin-bottom: 10px;"></i>
+                        <p>O boleto expira em 3 dias úteis. As chaves serão liberadas após a compensação bancária.</p>
+                    </div>
+
+                </section>
+
+            </div>
+
+            <!-- RESUMO DO PEDIDO -->
+            <aside class="summary">
+
+                <h2>RESUMO DO PEDIDO</h2>
+
+                <!-- LISTA RÁPIDA DOS ITENS -->
+                <div class="checkout-items" id="checkout-items">
+                </div>
+
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="subtotal">R$ 0,00</span>
+                </div>
+
+                <div class="summary-row">
+                    <span>Desconto (PIX/Cupom)</span>
+                    <span style="color: #00ffc8;">- R$ 0,00</span>
+                </div>
+
+                <hr class="summary-divider">
+
+                <div class="total">
+                    <span>Total</span>
+                    <span class="total-price" id="total">R$ 0,00</span>
+                </div>
+
+                <button class="checkout-btn" type="button" onclick="finalizarCompra()">
+                    <i class="fa-solid fa-lock"></i>
+                    PAGAR AGORA
+                </button>
+
+                <a href="#" class="back-to-cart">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Voltar ao Carrinho
+                </a>
+
+            </aside>
+
+        </div>
+
+    </main>
+
+</div>
+
+<!-- ==========================================
+     FOOTER
+========================================== -->
+
+<footer>
+
+    <div class="footer-content">
+
+        <div>
+            <div class="footer-logo">
+                GAME<span>VERSE</span>
+            </div>
+
+            <p class="footer-description">
+                Sua plataforma definitiva para jogos digitais, chaves de ativação e conteúdos exclusivos no universo gamer.
+            </p>
+
+            <div class="socials">
+                <a href="#"><i class="fa-brands fa-discord"></i></a>
+                <a href="#"><i class="fa-brands fa-steam"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-column">
+            <h3>NAVEGAÇÃO</h3>
+            <a href="#">Home</a>
+            <a href="#">Store</a>
+            <a href="#">Biblioteca</a>
+            <a href="#">Suporte</a>
+        </div>
+
+        <div class="footer-column">
+            <h3>CATEGORIAS</h3>
+            <a href="#">Ação</a>
+            <a href="#">RPG</a>
+            <a href="#">Estratégia</a>
+            <a href="#">Indie</a>
+        </div>
+
+        <div class="footer-column">
+            <h3>INSTITUCIONAL</h3>
+            <a href="#">Sobre nós</a>
+            <a href="#">Termos de Uso</a>
+            <a href="#">Privacidade</a>
+            <a href="#">Contato</a>
+        </div>
+
+    </div>
+
+    <div class="copyright">
+        &copy; 2026 GameVerse. Todos os direitos reservados.
+    </div>
+
+</footer>
+
+<!-- JAVASCRIPT PARA CHAVEAMENTO DE FORMULÁRIOS DE PAGAMENTO -->
+<script>
+
+    function togglePaymentFields(method) {
+        document.getElementById('card-fields').style.display =
+            method === 'cartao' ? 'block' : 'none';
+    
+        document.getElementById('pix-fields').style.display =
+            method === 'pix' ? 'flex' : 'none';
+    
+        document.getElementById('boleto-fields').style.display =
+            method === 'boleto' ? 'block' : 'none';
+    }
+    
+    function formatarMoeda(valor) {
+        return valor.toLocaleString(
+            'pt-BR',
+            {
+                style: 'currency',
+                currency: 'BRL'
+            }
+        );
+    }
+    
+    const carrinho =
+        JSON.parse(
+            localStorage.getItem('carrinho')
+        ) || [];
+    
+    const lista =
+        document.getElementById('checkout-items');
+    
+    const subtotal =
+        document.getElementById('subtotal');
+    
+    const total =
+        document.getElementById('total');
+    
+    let valorTotal = 0;
+    
+    if (carrinho.length === 0) {
+    
+        lista.innerHTML = `
+            <div class="checkout-item">
+                <span class="checkout-item-title">
+                    Carrinho vazio
+                </span>
+                <span class="checkout-item-price">
+                    R$ 0,00
+                </span>
+            </div>
+        `;
+    
+    } else {
+    
+        carrinho.forEach(item => {
+    
+            valorTotal += Number(item.preco);
+    
+            lista.innerHTML += `
+                <div class="checkout-item">
+    
+                    <span class="checkout-item-title">
+                        ${item.nome}
+                    </span>
+    
+                    <span class="checkout-item-price">
+                        ${formatarMoeda(Number(item.preco))}
+                    </span>
+    
+                </div>
+            `;
+        });
+    
+        subtotal.innerText =
+            formatarMoeda(valorTotal);
+    
+        total.innerText =
+            formatarMoeda(valorTotal);
+    }
+    function getCookie(name) {
+
+let cookieValue = null;
+
+if (document.cookie && document.cookie !== '') {
+
+    const cookies =
+        document.cookie.split(';');
+
+    for (
+        let i = 0;
+        i < cookies.length;
+        i++
+    ) {
+
+        const cookie =
+            cookies[i].trim();
+
+        if (
+            cookie.substring(
+                0,
+                name.length + 1
+            ) === (name + '=')
+        ) {
+
+            cookieValue =
+                decodeURIComponent(
+                    cookie.substring(
+                        name.length + 1
+                    )
+                );
+
+            break;
+        }
+    }
+}
+
+return cookieValue;
+}
+    async function finalizarCompra() {
+
+const carrinho =
+    JSON.parse(
+        localStorage.getItem('carrinho')
+    ) || [];
+
+const resposta = await fetch(
+    '/pagar-agora/',
+    {
+        method: 'POST',
+
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+
+        body: JSON.stringify({
+            itens: carrinho
+        })
+    }
+);
+
+const dados = await resposta.json();
+
+if (dados.sucesso) {
+
+    alert('Compra realizada com sucesso!');
+
+    localStorage.removeItem('carrinho');
+
+    window.location.href = '/app/';
+
+} else {
+
+    alert('Erro ao salvar pedido.');
+}
+}
+    
+    </script>
+
+</body>
+
+</html>
